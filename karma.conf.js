@@ -15,6 +15,7 @@ module.exports = function(config) {
 		files: [
 			// for Travis
 			'node_modules/es6-shim/es6-shim.js',
+			'node_modules/immutable/dist/immutable.js',
 
 			// zone-microtask must be included first as it contains a Promise monkey patch
 			'node_modules/zone.js/dist/zone-microtask.js',
@@ -26,9 +27,9 @@ module.exports = function(config) {
 			{ pattern: 'node_modules/angular2/**/*.js', included: false, watched: false, served: true },
 			{ pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false, served: true },
 			{ pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false, served: true }, // PhantomJS2 (and possibly others) might require it
+			{ pattern: 'node_modules/immutable/dist/immutable.js', included: true, watched: true },
 
 			{ pattern: 'src/**/*.ts', included: false, watched: true }, // source files
-			{ pattern: 'tests/**/*.ts', included: false, watched: true }, // test files
 
 			'karma-test-shim.js'
 		],
