@@ -6,9 +6,6 @@ import {ScrollSpyService} from './service';
 @Injectable()
 @Directive({
 	selector: '[scrollSpyElement]',
-	providers: [
-		ScrollSpyService
-	],
 	host: {
     '(scroll)': 'onScroll($event)'
   }
@@ -29,7 +26,7 @@ export class ScrollSpyElementDirective implements OnInit, OnDestroy {
 				.distinctUntilChanged();
 		});
 
-		if (!!this.scrollSpyId) {
+		if (!this.scrollSpyId) {
 			return console.warn('ScrollSpy: Missing id.');
 		}
 
@@ -41,7 +38,7 @@ export class ScrollSpyElementDirective implements OnInit, OnDestroy {
 
 		if (!!this.scrollSpy.debug) {
 			this._scrollStream.subscribe((e: any) => {
-				console.log('ScrollSpy::' + this.scrollSpyId + ': ' + e);
+				console.log('ScrollSpy::' + this.scrollSpyId + ': ', e);
 			});
 		}
 	}

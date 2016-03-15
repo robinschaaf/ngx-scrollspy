@@ -6,11 +6,8 @@ import {ScrollSpyService} from './service';
 @Injectable()
 @Directive({
 	selector: '[scrollSpy]',
-	providers: [
-		ScrollSpyService
-	],
 	host: {
-    '(window.scroll)': 'onScroll($event)'
+    '(window:scroll)': 'onScroll($event)'
   }
 })
 export class ScrollSpyDirective implements OnInit {
@@ -32,10 +29,10 @@ export class ScrollSpyDirective implements OnInit {
 		} else {
 			this.scrollSpy.setObservable('window', this._scrollStream);
 		}
-
+		
 		if (!!this.scrollSpy.debug) {
 			this._scrollStream.subscribe((e: any) => {
-				console.log('ScrollSpy::window: ' + e);
+				console.log('ScrollSpy::window: ', e);
 			});
 		}
 	}

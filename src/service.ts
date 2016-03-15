@@ -9,7 +9,7 @@ export class ScrollSpyService {
 	
 	private observables: Map<string, any> = Map({});
 
-	public getObservable(key: string) {
+	public getObservable(key: string): any {
 		return this.observables.get(key);
 	}
 
