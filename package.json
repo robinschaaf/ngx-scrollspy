@@ -1,12 +1,12 @@
 {
   "name": "ng2-scrollspy",
-  "description": "Angular2 ScrollSpy",
+  "description": "Angular2 ScrollSpy Service",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "dependencies": {},
   "devDependencies": {
     "angular2": "~2.0.0-beta.8",
-    "commitizen": "~2.5.0",
-    "cz-conventional-changelog": "~1.1.4",
+    "commitizen": "~2.7.2",
+    "cz-conventional-changelog": "~1.1.5",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
     "immutable": "^3.7.6",
@@ -31,7 +31,7 @@
   "scripts": {
     "lint": "tslint ./*.ts ./src/{,*/}*.ts",
     "test": "karma start",
-    "commit": "git-cz",
+    "commit": "git cz",
     "prepublish": "./node_modules/.bin/typings install && tsc",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
