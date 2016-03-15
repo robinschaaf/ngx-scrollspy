@@ -6,5 +6,4 @@
 
 [![Github Releases](https://img.shields.io/github/downloads/jonnybgod/ng2-scrollspy/latest/total.svg)]()
 
-# ng2-scrollspy
-Angular2 ScrollSpy
+# (Coming Soon) This is a work in progress not usable for now.
