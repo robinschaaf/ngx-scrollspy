@@ -10,10 +10,10 @@ You can use this angular2 service to spy scroll events from ```window``` or any 
 
 This library implements an service to collect observables from scroll spy directives. It can be used to create you own components or if you prefer use on of the following components that leverage this library functionality to accomplish different behaviors:
 
-* index: create and display and index from content inside and element.
-* affix: make element follow scroll inside its parent.
-* parallax: create very simple parallax effects based on scroll.
-* infinite: infinite scroll
+* **index**: create and display and index from content inside and element.
+* **affix**: make element follow scroll inside its parent.
+* **parallax**: create very simple parallax effects based on scroll.
+* **infinite**: infinite scroll
 
 ## Installation
 First you need to install the npm module:
