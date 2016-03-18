@@ -1,6 +1,5 @@
 {
   "name": "ng2-scrollspy",
-  "version": "0.0.0",
   "description": "Angular2 ScrollSpy Service",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "dependencies": {},
@@ -48,7 +47,13 @@
     "angular",
     "scrollspy",
     "scroll",
-    "spy"
+    "spy",
+    "index",
+    "parallax",
+    "infinite",
+    "infinite-scroll",
+    "affix",
+    "effect"
   ],
   "license": "MIT",
   "engines": {

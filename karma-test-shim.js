@@ -1,3 +1,5 @@
+///<reference path='./node_modules/immutable/dist/immutable.d.ts'/>
+
 // Turn on full stack traces in errors to help debugging
 Error.stackTraceLimit=Infinity;
 

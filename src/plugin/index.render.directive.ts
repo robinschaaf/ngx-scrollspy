@@ -1,4 +1,4 @@
-import {Component, View, Injectable, Input, ElementRef, DynamicComponentLoader, OnInit, AfterViewInit, ComponentRef, OnDestroy} from 'angular2/core';
+import {Component, Injectable, Input, ElementRef, DynamicComponentLoader, OnInit, AfterViewInit, ComponentRef, OnDestroy} from 'angular2/core';
 import {BrowserDomAdapter} from 'angular2/platform/browser';
 
 import {ScrollSpyService} from '../index';
@@ -15,9 +15,7 @@ export interface ScrollSpyIndexRenderOptions {
 	selector: '[scrollSpyIndexRender]',
 	providers: [
 		BrowserDomAdapter
-	]
-})
-@View({
+	],
 	template: `<div #container></div>`
 })
 export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnDestroy {
