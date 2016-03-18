@@ -1,12 +1,11 @@
-///<reference path='./../node_modules/immutable/dist/immutable.d.ts'/>
+///<reference path='./../../node_modules/immutable/dist/immutable.d.ts'/>
 
-import {Injectable} from 'angular2/core';
+import {Injectable, EventEmitter} from 'angular2/core';
 import {Map} from 'immutable';
 
 @Injectable()
 export class ScrollSpyService {
-	public debug: Boolean = false;
-	
+	public changes: EventEmitter<any> = new EventEmitter();
 	private observables: Map<string, any> = Map({});
 
 	public getObservable(key: string): any {
@@ -15,9 +14,11 @@ export class ScrollSpyService {
 
 	public setObservable(key: string, observable: any) {
 		this.observables = this.observables.set(key, observable);
+		this.changes.emit({ index: key, change: 'set' });
 	}
 
 	public deleteObservable(key: string) {
 		this.observables = this.observables.delete(key);
+		this.changes.emit({ index: key, change: 'delete' });
 	}
 }

@@ -3,15 +3,15 @@ import {
 	describe
 } from 'angular2/testing';
 
-import {ScrollSpyService} from './service';
+import {ScrollSpyIndexService} from './index.service';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
 export function main() {
-	describe('service', () => {
+	describe('index service', () => {
 
 		it('is defined', () => {
-			expect(ScrollSpyService).toBeDefined();
+			expect(ScrollSpyIndexService).toBeDefined();
 		});
 
 	});

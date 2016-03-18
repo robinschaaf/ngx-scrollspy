@@ -1,5 +1,6 @@
 {
   "name": "ng2-scrollspy",
+  "version": "0.0.0",
   "description": "Angular2 ScrollSpy Service",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "dependencies": {},
@@ -21,7 +22,7 @@
     "semantic-release": "^4.3.5",
     "systemjs": "~0.19.6",
     "tslint": "^3.2.1",
-    "typescript": "~1.8.7",
+    "typescript": "~1.8.9",
     "typings": "^0.6.10",
     "zone.js": "~0.5.15"
   },
@@ -29,14 +30,14 @@
     "url": "http://github.com/jonnybgod/ng2-scrollspy/issues"
   },
   "scripts": {
-    "lint": "tslint ./*.ts ./src/{,*/}*.ts",
+    "lint": "./node_modules/.bin/tslint ./src/*.ts ./src/**/*.ts",
     "test": "karma start",
     "commit": "git cz",
-    "prepublish": "./node_modules/.bin/typings install && tsc",
+    "prepublish": "./clean.sh && ./node_modules/.bin/typings install && tsc --outDir ./",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "main": "ng2-scrollspy.js",
-  "typings": "./ng2-scrollspy.d.ts",
+  "main": "./",
+  "typings": "./",
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnybgod/ng2-scrollspy.git"

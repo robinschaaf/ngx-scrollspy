@@ -10,9 +10,10 @@ You can use this angular2 service to spy scroll events from ```window``` or any 
 
 This library implements an service to collect observables from scroll spy directives. It can be used to create you own components or if you prefer use on of the following components that leverage this library functionality to accomplish different behaviors:
 
-* [ng2-scrollspy-index](https://github.com/JonnyBGod/ng2-scrollspy-index) (Comming Soon)
-* [ng2-scrollspy-parallax](https://github.com/JonnyBGod/ng2-scrollspy-parallax) (Comming Soon)
-* [ng2-scrollspy-infinite](https://github.com/JonnyBGod/ng2-scrollspy-infinite) (Comming Soon)
+* index: create and display and index from content inside and element.
+* affix: make element follow scroll inside its parent.
+* parallax: create very simple parallax effects based on scroll.
+* infinite: infinite scroll
 
 ## Installation
 First you need to install the npm module:
@@ -34,7 +35,7 @@ It is recommended to instantiate `ScrollSpyService` in the bootstrap of your app
 If you add it to the "providers" property of a component it will instantiate a new instance of the service that won't be initialized.
 
 ```js
-import {ScrollSpyService} from 'ng2-scrollspy/ng2-scrollspy';
+import {ScrollSpyService} from 'ng2-scrollspy';
 
 bootstrap(AppComponent, [
 	ScrollSpyService
@@ -48,8 +49,8 @@ bootstrap(AppComponent, [
 Use ```ScrollSpyDirective``` to spy on window.
 
 ```js
-import {Component, View, Injectable, AfterViewInit} from 'angular2/angular2';
-import {ScrollSpyDirective, ScrollSpyService} from 'ng2-scrollspy/ng2-scrollspy';
+import {Component, View, Injectable, AfterViewInit} from 'angular2/core';
+import {ScrollSpyDirective, ScrollSpyService} from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
@@ -77,20 +78,22 @@ export class AppComponent implements AfterViewInit {
 Use ```ScrollSpyElementDirective``` to spy on any element. You must git a unique id to each instance.
 
 ```js
-import {Component, View, Injectable, AfterViewInit} from 'angular2/angular2';
-import {ScrollSpyElementDirective, ScrollSpyService} from 'ng2-scrollspy/ng2-scrollspy';
+import {Component, View, Injectable, AfterViewInit} from 'angular2/core';
+import {ScrollSpyElementDirective, ScrollSpyService} from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
 	selector: 'yourComponent'
 })
 @View({
-	template: `<div scrollSpyElement="test" style="max-height: 100px; overflow: auto;">`
-		`<div style="height: 500px;"></div>`
-	`</div>`,
+	template: `
+	<div scrollSpyElement="test" style="max-height: 100px; overflow: auto;">
+		<div style="height: 500px;"></div>
+	</div>`,
 	directives: [ScrollSpyElementDirective]
 })
-export class YourComponent implements AfterViewInit {
+export class YourComponent implements 
+ {
 	constructor(scrollSpyService: ScrollSpyService) {
 		this.scrollSpyService = scrollSpyService;
 	}
@@ -105,7 +108,18 @@ export class YourComponent implements AfterViewInit {
 
 Because ```ScrollSpyService``` is a singleton, you can get any ScrollSpy observable from anywhere withing your application.
 
-Check one of the dependent libraries for examples of more complex use cases.
+# TODO:
+
+* Documentation/examples webpage
+* Unit tests
+* Test all browsers
+	- [x] Chrome
+	- [ ] Firefox
+	- [ ] Safari
+	- [ ] IE
+	- [ ] edge
+	- [ ] opera
+	- [ ] Mobile
 
 ## License
 
