@@ -4,11 +4,10 @@
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "dependencies": {},
   "devDependencies": {
-    "angular2": "~2.0.0-beta.10",
+    "angular2": "~2.0.0-beta.12",
     "commitizen": "~2.7.2",
     "cz-conventional-changelog": "~1.1.5",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.33.3",
+    "es6-shim": "^0.35.0",
     "immutable": "^3.7.6",
     "jasmine-core": "~2.4.1",
     "karma": "~0.13.21",
