@@ -1,6 +1,7 @@
 {
   "name": "budacode-ng2-scrollspy",
   "description": "Angular2 ScrollSpy Service",
+  "version": "0.0.1",
   "author":  "Balazs Gallay <gallayb@gmail.com> (http://github.com/carathorys)",
   "dependencies": {
     "immutable": "^3.7.6"
