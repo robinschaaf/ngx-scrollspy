@@ -1,14 +1,15 @@
 {
-  "name": "ng2-scrollspy",
+  "name": "budacode-ng2-scrollspy",
   "description": "Angular2 ScrollSpy Service",
-  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
-  "dependencies": {},
+  "author":  "Balazs Gallay <gallayb@gmail.com> (http://github.com/carathorys)",
+  "dependencies": {
+    "immutable": "^3.7.6"
+  },
   "devDependencies": {
     "angular2": "~2.0.0-beta.15",
     "commitizen": "~2.7.2",
     "cz-conventional-changelog": "~1.1.5",
     "es6-shim": "^0.35.0",
-    "immutable": "^3.7.6",
     "jasmine-core": "~2.4.1",
     "karma": "~0.13.21",
     "karma-chrome-launcher": "~0.2.2",
@@ -35,7 +36,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "main": "./dist",
-  "typings": "./",
+  "typings": "./dist",
   "repository": {
     "type": "git",
     "url": "https://github.com/budacode/ng2-scrollspy.git"
