@@ -4,7 +4,7 @@
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "dependencies": {},
   "devDependencies": {
-    "angular2": "~2.0.0-beta.12",
+    "angular2": "~2.0.0-beta.15",
     "commitizen": "~2.7.2",
     "cz-conventional-changelog": "~1.1.5",
     "es6-shim": "^0.35.0",
@@ -31,14 +31,14 @@
     "lint": "./node_modules/.bin/tslint ./src/*.ts ./src/**/*.ts",
     "test": "karma start",
     "commit": "git cz",
-    "prepublish": "./clean.sh && ./node_modules/.bin/typings install && tsc --outDir ./",
+    "prepublish": "./clean.sh && ./node_modules/.bin/typings install && tsc --removeComments --outDir ./dist",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "main": "./",
+  "main": "./dist",
   "typings": "./",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonnybgod/ng2-scrollspy.git"
+    "url": "https://github.com/budacode/ng2-scrollspy.git"
   },
   "keywords": [
     "angular2",
