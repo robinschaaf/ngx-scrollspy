@@ -3,6 +3,9 @@
   "description": "Angular2 ScrollSpy Service",
   "version": "0.0.4",
   "author":  "Balazs Gallay <gallayb@gmail.com> (http://github.com/carathorys)",
+  "dependencies": {
+
+  },
   "devDependencies": {
     "angular2": "~2.0.0-beta.15",
     "commitizen": "~2.7.2",
@@ -31,7 +34,7 @@
     "lint": "./node_modules/.bin/tslint ./src/*.ts ./src/**/*.ts",
     "test": "karma start",
     "commit": "git cz",
-    "prepublish": "./clean.sh && ./node_modules/.bin/typings install && tsc --removeComments --outDir ./dist",
+    "prepublish": "./clean.sh && tsc --removeComments --outDir ./dist",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "main": "./dist",

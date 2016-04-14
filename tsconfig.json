@@ -1,17 +1,17 @@
 {
-	"compilerOptions": {
-		"noImplicitAny": true,
-		"module": "commonjs",
-		"target": "ES5",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"sourceMap": true,
-		"declaration": true,
-		"moduleResolution": "node"
-	},
-	"exclude": [
-		"node_modules",
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "ES5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "node_modules",
     "typings/main.d.ts",
     "typings/main"
-	]	
+  ]
 }
