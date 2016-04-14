@@ -7,6 +7,5 @@
     "zone.js": "github:gdi2290/typed-zone.js/lib/zone.d.ts#225aa313388bdf78b18ed9f0b29f93a395146229"
   },
   "dependencies": {
-    "immutable": "github:alitaheri/immutable-unambient#3e5ef14e1677e2db90770b8263be889b71c4d444"
   }
 }

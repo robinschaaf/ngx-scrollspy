@@ -1,18 +1,17 @@
 {
   "name": "budacode-ng2-scrollspy",
   "description": "Angular2 ScrollSpy Service",
-  "version": "0.0.4",
+  "version": "0.0.15",
   "author":  "Balazs Gallay <gallayb@gmail.com> (http://github.com/carathorys)",
   "dependencies": {
-
+    "immutable": "^3.7.6"
   },
   "devDependencies": {
-    "angular2": "~2.0.0-beta.15",
+    "angular2": "~2.0.0-beta.12",
     "commitizen": "~2.7.2",
     "cz-conventional-changelog": "~1.1.5",
     "es6-shim": "^0.35.0",
     "jasmine-core": "~2.4.1",
-    "immutable": "^3.7.6",
     "karma": "~0.13.21",
     "karma-chrome-launcher": "~0.2.2",
     "karma-firefox-launcher": "~0.1.7",
@@ -34,10 +33,11 @@
     "lint": "./node_modules/.bin/tslint ./src/*.ts ./src/**/*.ts",
     "test": "karma start",
     "commit": "git cz",
-    "prepublish": "./clean.sh && tsc --removeComments --outDir ./dist",
+    "prepublish": "./clean.sh && ./node_modules/.bin/typings install && tsc",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "main": "./dist",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/budacode/ng2-scrollspy.git"
