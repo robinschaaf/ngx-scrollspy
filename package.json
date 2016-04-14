@@ -39,7 +39,7 @@
   "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/budacode/ng2-scrollspy.git"
+    "url": "https://github.com/jonnybgod/ng2-scrollspy.git"
   },
   "keywords": [
     "angular2",
