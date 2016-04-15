@@ -35,8 +35,8 @@
     "build": "./clean.sh && ./node_modules/.bin/typings install && tsc --outDir ./",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "main": "./",
-  "typings": "./",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnybgod/ng2-scrollspy.git"
