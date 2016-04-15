@@ -21,7 +21,7 @@ export class ScrollSpyDirective implements OnInit {
 		if (!!this.scrollSpy.getObservable('window')) {
 			console.warn('ScrollSpy: duplicate id "window". Instance will be skipped!');
 		} else {
-			this.scrollSpy.setObservable('window', this._scrollStream.distinctUntilChanged());
+			this.scrollSpy.setObservable('window', this._scrollStream);
 		}
 	}
 

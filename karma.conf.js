@@ -45,15 +45,21 @@ module.exports = function(config) {
 
 		typescriptPreprocessor: {
 			options: {
-				"noImplicitAny": true,
+				"target": "es5",
 		    "module": "commonjs",
-		    "target": "es5",
+		    "declaration": false,
+		    "removeComments": true,
+		    "noLib": false,
 		    "emitDecoratorMetadata": true,
 		    "experimentalDecorators": true,
 		    "sourceMap": false,
-		    "declaration": true,
-		    "removeComments": true,
-		    "moduleResolution": "node"
+		    "pretty": true,
+		    "allowUnreachableCode": false,
+		    "allowUnusedLabels": false,
+		    "noImplicitAny": true,
+		    "noImplicitReturns": false,
+		    "noImplicitUseStrict": false,
+		    "noFallthroughCasesInSwitch": true
 			},
 			typings: [
 				"typings/browser.d.ts"

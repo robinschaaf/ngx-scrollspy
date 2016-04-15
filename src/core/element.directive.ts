@@ -26,7 +26,7 @@ export class ScrollSpyElementDirective implements OnInit, OnDestroy {
 		if (!!this.scrollSpy.getObservable(this.scrollSpyId)) {
 			console.warn('ScrollSpy: duplicate id "' + this.scrollSpyId + '". Instance will be skipped!');
 		} else {
-			this.scrollSpy.setObservable(this.scrollSpyId, this._scrollStream.distinctUntilChanged());
+			this.scrollSpy.setObservable(this.scrollSpyId, this._scrollStream);
 		}
 	}
 
