@@ -1,5 +1,3 @@
-///<reference path='./../../node_modules/immutable/dist/immutable.d.ts'/>
-
 import {Injectable, EventEmitter} from 'angular2/core';
 import {Map} from 'immutable';
 
