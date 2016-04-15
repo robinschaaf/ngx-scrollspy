@@ -33,7 +33,7 @@
     "test": "karma start",
     "commit": "git cz",
     "build": "./clean.sh && ./node_modules/.bin/typings install && tsc",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
