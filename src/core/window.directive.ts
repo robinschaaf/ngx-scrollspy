@@ -1,5 +1,5 @@
 import {Directive, Injectable, OnInit} from 'angular2/core';
-import {ReplaySubject} from 'rxjs/subject/ReplaySubject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {ScrollSpyService} from './service';
 
 @Injectable()

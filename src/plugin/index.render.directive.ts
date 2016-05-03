@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, ElementRef, DynamicComponentLoader, OnInit, AfterViewInit, ComponentRef, OnDestroy, ChangeDetectionStrategy} from 'angular2/core';
+import {Component, Injectable, Input, ElementRef, DynamicComponentLoader, OnInit, AfterViewInit, ComponentRef, ViewContainerRef, ViewChild, OnDestroy, ChangeDetectionStrategy} from 'angular2/core';
 import {BrowserDomAdapter} from 'angular2/platform/browser';
 
 import {ScrollSpyService} from '../index';
@@ -21,6 +21,7 @@ export interface ScrollSpyIndexRenderOptions {
 })
 export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnDestroy {
 	@Input('scrollSpyIndexRender') options: ScrollSpyIndexRenderOptions;
+	@ViewChild('container', {read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
 
 	private defaultOptions: ScrollSpyIndexRenderOptions = {
 		spyId: 'window',
@@ -113,11 +114,10 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 		markup += '</ul>';
 
 		this.removeChildren();
-		this.loader.loadIntoLocation(
+		this.loader.loadNextToLocation(
       this.compileToComponent(markup, [], () => this.getItemsToHighlight()),
-      this.elRef,
-      'container'
-		).then((ref) => {
+      this.viewContainerRef
+		).then((ref: ComponentRef) => {
 		    this._children.push(ref);
 		});
     //this.DOM.setInnerHTML(this.el, markup);
@@ -235,7 +235,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 	}
 
 	removeChildren() {
-		this._children.forEach(cmp => cmp.dispose());
+		this._children.forEach(cmp => cmp.destroy());
 		this._children = [];
 	}
 
