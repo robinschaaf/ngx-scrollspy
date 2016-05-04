@@ -1,5 +1,5 @@
-import {Directive, Injectable, ElementRef, Input, OnInit, AfterViewInit, OnDestroy} from 'angular2/core';
-import {BrowserDomAdapter} from 'angular2/platform/browser';
+import {Directive, Injectable, ElementRef, Input, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
+import {DomAdapter} from '@angular/platform-browser/src/dom/dom_adapter';
 
 import {ScrollSpyIndexService} from './index.service';
 
@@ -12,7 +12,7 @@ export interface ScrollSpyIndexOptions {
 @Directive({
 	selector: '[scrollSpyIndex]',
 	providers: [
-		BrowserDomAdapter
+		DomAdapter
 	]
 })
 export class ScrollSpyIndexDirective implements OnInit, AfterViewInit, OnDestroy {
@@ -25,7 +25,7 @@ export class ScrollSpyIndexDirective implements OnInit, AfterViewInit, OnDestroy
 	private el: HTMLElement;
 
 	constructor(
-		private DOM: BrowserDomAdapter,
+		private DOM: DomAdapter,
 		private elRef: ElementRef,
 		private scrollSpyIndex: ScrollSpyIndexService
 	) {

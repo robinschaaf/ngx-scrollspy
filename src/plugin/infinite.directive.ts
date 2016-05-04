@@ -1,4 +1,4 @@
-import {Directive, Injectable, Input, Output, ElementRef, EventEmitter, OnInit, AfterViewInit, OnDestroy} from 'angular2/core';
+import {Directive, Injectable, Input, Output, ElementRef, EventEmitter, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 
 import {ScrollSpyService} from '../index';
 

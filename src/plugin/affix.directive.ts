@@ -1,5 +1,5 @@
-import {Directive, Injectable, ElementRef, Input, AfterViewInit, OnDestroy} from 'angular2/core';
-import {BrowserDomAdapter} from 'angular2/platform/browser';
+import {Directive, Injectable, ElementRef, Input, AfterViewInit, OnDestroy} from '@angular/core';
+import {DomAdapter} from '@angular/platform-browser/src/dom/dom_adapter';
 
 import {ScrollSpyService} from '../index';
 
@@ -12,7 +12,7 @@ export interface ScrollSpyAffixOptions {
 @Directive({
 	selector: '[scrollSpyAffix]',
 	providers: [
-		BrowserDomAdapter
+		DomAdapter
 	],
 	host: {
 		'[class.affixTop]': 'affixTop',
@@ -38,7 +38,7 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
 	private affixBottom: boolean = false;
 
 	constructor(
-		private DOM: BrowserDomAdapter,
+		private DOM: DomAdapter,
 		private elRef: ElementRef,
 		private scrollSpy: ScrollSpyService
 	) {

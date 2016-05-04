@@ -1,7 +1,8 @@
 import {
 	it,
-	describe
-} from 'angular2/testing';
+	describe,
+	expect
+} from '@angular/core/testing';
 
 import {ScrollSpyIndexService} from './index.service';
 

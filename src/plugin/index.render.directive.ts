@@ -1,5 +1,5 @@
-import {Component, Injectable, Input, ElementRef, DynamicComponentLoader, OnInit, AfterViewInit, ComponentRef, ViewContainerRef, ViewChild, OnDestroy, ChangeDetectionStrategy} from 'angular2/core';
-import {BrowserDomAdapter} from 'angular2/platform/browser';
+import {Component, Injectable, Input, ElementRef, DynamicComponentLoader, OnInit, AfterViewInit, ComponentRef, ViewContainerRef, ViewChild, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {DomAdapter} from '@angular/platform-browser/src/dom/dom_adapter';
 
 import {ScrollSpyService} from '../index';
 import {ScrollSpyIndexService} from './index.service';
@@ -14,7 +14,7 @@ export interface ScrollSpyIndexRenderOptions {
 @Component({
 	selector: '[scrollSpyIndexRender]',
 	providers: [
-		BrowserDomAdapter
+		DomAdapter
 	],
 	template: `<div #container></div>`,
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,7 +32,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 	private _scrollStream: any;
 
 	private el: HTMLElement;
-	private _children: ComponentRef[] = [];
+	private _children: Array<ComponentRef<any>> = [];
 
 	private stack: Array<any> = [];
 	private parentStack: Array<any> = [];
@@ -42,7 +42,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 	private itemsToHighlight: Array<string> = [];
 
 	constructor(
-		private DOM: BrowserDomAdapter,
+		private DOM: DomAdapter,
 		private loader: DynamicComponentLoader,
 		private elRef: ElementRef,
 		private scrollSpy: ScrollSpyService,
@@ -117,7 +117,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 		this.loader.loadNextToLocation(
       this.compileToComponent(markup, [], () => this.getItemsToHighlight()),
       this.viewContainerRef
-		).then((ref: ComponentRef) => {
+		).then((ref: ComponentRef<any>) => {
 		    this._children.push(ref);
 		});
     //this.DOM.setInnerHTML(this.el, markup);
