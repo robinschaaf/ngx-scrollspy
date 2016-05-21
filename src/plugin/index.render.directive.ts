@@ -1,5 +1,5 @@
 import {Component, Injectable, Input, ElementRef, DynamicComponentLoader, OnInit, AfterViewInit, ComponentRef, ViewContainerRef, ViewChild, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
-import {DomAdapter} from '@angular/platform-browser/src/dom/dom_adapter';
+import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 
 import {ScrollSpyService} from '../index';
 import {ScrollSpyIndexService} from './index.service';
@@ -13,9 +13,6 @@ export interface ScrollSpyIndexRenderOptions {
 @Injectable()
 @Component({
 	selector: '[scrollSpyIndexRender]',
-	providers: [
-		DomAdapter
-	],
 	template: `<div #container></div>`,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -42,7 +39,6 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 	private itemsToHighlight: Array<string> = [];
 
 	constructor(
-		private DOM: DomAdapter,
 		private loader: DynamicComponentLoader,
 		private elRef: ElementRef,
 		private scrollSpy: ScrollSpyService,
@@ -120,7 +116,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 		).then((ref: ComponentRef<any>) => {
 		    this._children.push(ref);
 		});
-    //this.DOM.setInnerHTML(this.el, markup);
+    //getDOM().setInnerHTML(this.el, markup);
     setTimeout(() => {
 			this.calculateHighlight();
     });
@@ -188,7 +184,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 
 		var highlightItem: string;
 		for (var i = items.length - 1; i >= 0; i--) {
-			if (this.currentScrollPosition - this.DOM.getProperty(items[i], 'offsetTop') - this.options.topMargin >= 0) {
+			if (this.currentScrollPosition - getDOM().getProperty(items[i], 'offsetTop') - this.options.topMargin >= 0) {
 				highlightItem = items[i].id;
 				break;
 			}
@@ -200,9 +196,9 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 		this.itemsToHighlight.push(highlightItem);
 
 		while (!!highlightItem) {
-			var item = this.DOM.querySelector(this.el, '[pagemenuspy=' + highlightItem + ']');
+			var item = getDOM().querySelector(this.el, '[pagemenuspy=' + highlightItem + ']');
 			if (!!item) {
-				var parent = this.DOM.getAttribute(item, 'parent');
+				var parent = getDOM().getAttribute(item, 'parent');
 				if (parent) {
 					highlightItem = parent;
 					this.itemsToHighlight.push(highlightItem);

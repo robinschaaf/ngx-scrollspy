@@ -1,5 +1,5 @@
 import {Directive, Injectable, ElementRef, Input, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
-import {DomAdapter} from '@angular/platform-browser/src/dom/dom_adapter';
+import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 
 import {ScrollSpyIndexService} from './index.service';
 
@@ -10,10 +10,7 @@ export interface ScrollSpyIndexOptions {
 
 @Injectable()
 @Directive({
-	selector: '[scrollSpyIndex]',
-	providers: [
-		DomAdapter
-	]
+	selector: '[scrollSpyIndex]'
 })
 export class ScrollSpyIndexDirective implements OnInit, AfterViewInit, OnDestroy {
 	@Input('scrollSpyIndex') options: ScrollSpyIndexOptions;
@@ -25,7 +22,6 @@ export class ScrollSpyIndexDirective implements OnInit, AfterViewInit, OnDestroy
 	private el: HTMLElement;
 
 	constructor(
-		private DOM: DomAdapter,
 		private elRef: ElementRef,
 		private scrollSpyIndex: ScrollSpyIndexService
 	) {
@@ -45,7 +41,7 @@ export class ScrollSpyIndexDirective implements OnInit, AfterViewInit, OnDestroy
 	}
 
 	ngAfterViewInit() {
-		this.scrollSpyIndex.setIndex(this.options.id, this.DOM.getElementsByClassName(this.el, this.options.selector));
+		this.scrollSpyIndex.setIndex(this.options.id, getDOM().getElementsByClassName(this.el, this.options.selector));
 	}
 
 	ngOnDestroy() {
