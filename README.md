@@ -25,7 +25,7 @@ If you use SystemJS to load your files, you might have to update your config wit
 ```js
 System.config({
 	packages: {
-		"/ng2-scrollspy": {"defaultExtension": "js"}
+		"ng2-scrollspy": {"defaultExtension": "js"}
 	}
 });
 ```
@@ -35,6 +35,7 @@ It is recommended to instantiate `ScrollSpyService` in the bootstrap of your app
 If you add it to the "providers" property of a component it will instantiate a new instance of the service that won't be initialized.
 
 ```js
+import {bootstrap} from '@angular/platform-browser-dynamic';
 import {ScrollSpyService} from 'ng2-scrollspy';
 
 bootstrap(AppComponent, [
