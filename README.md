@@ -50,14 +50,12 @@ bootstrap(AppComponent, [
 Use ```ScrollSpyDirective``` to spy on window.
 
 ```js
-import {Component, View, Injectable, AfterViewInit} from '@angular/core';
+import {Component, Injectable, AfterViewInit} from '@angular/core';
 import {ScrollSpyDirective, ScrollSpyService} from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
-	selector: 'app'
-})
-@View({
+	selector: 'app',
 	template: `<div scrollSpy></div>`,
 	directives: [ScrollSpyDirective]
 })
