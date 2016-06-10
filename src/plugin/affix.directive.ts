@@ -4,7 +4,8 @@ import {
   ElementRef,
   Input,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
 
@@ -42,6 +43,7 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
   private affixBottom: boolean = false;
 
   constructor(
+    private ref: ChangeDetectorRef,
     private elRef: ElementRef,
     private scrollSpy: ScrollSpyService
   ) {
@@ -70,13 +72,22 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
   update(currentTop: number) {
     if (currentTop >= this.elementTop + this.options.topMargin) {
       if (currentTop > this.elementBottom - this.options.bottomMargin - getDOM().getBoundingClientRect(this.el).height) {
+        if (this.affixTop || !this.affixBottom) {
+          this.ref.markForCheck();
+        }
         this.affixTop = false;
         this.affixBottom = true;
       } else {
+        if (!this.affixTop || this.affixBottom) {
+          this.ref.markForCheck();
+        }
         this.affixTop = true;
         this.affixBottom = false;
       }
     } else {
+      if (this.affixTop) {
+        this.ref.markForCheck();
+      }
       this.affixTop = false;
     }
   }
