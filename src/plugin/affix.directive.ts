@@ -60,9 +60,9 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
     this.elementBottom = this.elementTop + getDOM().getBoundingClientRect(this.parentEl).height;
 
     if (!!this.scrollSpy.getObservable('window')) {
-      // TODO: Remove delay once: https://github.com/angular/angular/issues/7443
-      this.scrollStream$ = this.scrollSpy.getObservable('window').delay(0).subscribe((e: any) => {
-        this.update(e.target.scrollingElement.scrollTop);
+      // TODO: Remove setTimeout once: https://github.com/angular/angular/issues/7443
+      this.scrollStream$ = this.scrollSpy.getObservable('window').subscribe((e: any) => {
+        setTimeout(() => this.update(e.target.scrollingElement.scrollTop));
       });
     }
   }
