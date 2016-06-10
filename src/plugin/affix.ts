@@ -1,4 +1,4 @@
-import {ScrollSpyAffixDirective} from './affix.directive';
+import { ScrollSpyAffixDirective } from './affix.directive';
 
 export * from './affix.directive';
 

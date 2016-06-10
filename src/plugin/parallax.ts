@@ -1,4 +1,4 @@
-import {ScrollSpyParallaxDirective} from './parallax.directive';
+import { ScrollSpyParallaxDirective } from './parallax.directive';
 
 export * from './parallax.directive';
 

@@ -1,4 +1,4 @@
-import {ScrollSpyInfiniteDirective} from './infinite.directive';
+import { ScrollSpyInfiniteDirective } from './infinite.directive';
 
 export * from './infinite.directive';
 

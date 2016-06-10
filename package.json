@@ -3,7 +3,7 @@
   "description": "Angular2 ScrollSpy Service",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "dependencies": {
-    "immutable": "^3.8.0"
+    "immutable": "^3.8.1"
   },
   "devDependencies": {
     "@angular/common": "^2.0.0-rc.1",
