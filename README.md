@@ -77,14 +77,12 @@ export class AppComponent implements AfterViewInit {
 Use ```ScrollSpyElementDirective``` to spy on any element. You must git a unique id to each instance.
 
 ```js
-import {Component, View, Injectable, AfterViewInit} from '@angular/core';
+import {Component, Injectable, AfterViewInit} from '@angular/core';
 import {ScrollSpyElementDirective, ScrollSpyService} from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
-	selector: 'yourComponent'
-})
-@View({
+	selector: 'yourComponent',
 	template: `
 	<div scrollSpyElement="test" style="max-height: 100px; overflow: auto;">
 		<div style="height: 500px;"></div>
