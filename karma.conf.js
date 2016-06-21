@@ -64,7 +64,7 @@ module.exports = function(config) {
 		    "noFallthroughCasesInSwitch": true
 			},
 			typings: [
-				"typings/browser.d.ts"
+				"typings/index.d.ts"
 			]
 		},
 
