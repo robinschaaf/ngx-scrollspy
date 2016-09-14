@@ -7,6 +7,6 @@ export * from './index.directive';
 export * from './index.render.directive';
 
 export default {
-  directives: [ScrollSpyIndexDirective, ScrollSpyIndexRenderDirective],
-  providers: [ScrollSpyIndexService]
-}
+  directives: [ ScrollSpyIndexDirective, ScrollSpyIndexRenderDirective ],
+  providers: [ ScrollSpyIndexService ]
+};

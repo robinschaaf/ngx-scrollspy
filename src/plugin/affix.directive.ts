@@ -7,7 +7,6 @@ import {
   OnDestroy,
   ChangeDetectorRef
 } from '@angular/core';
-import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
 
 import { ScrollSpyService } from '../index';
 
@@ -57,9 +56,9 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
 
     this.options = Object.assign(this.defaultOptions, this.options);
 
-    this.parentEl = getDOM().parentElement(this.el);
-    this.elementTop = getDOM().getProperty(this.parentEl, 'scrollTop');
-    this.elementBottom = this.elementTop + getDOM().getBoundingClientRect(this.parentEl).height;
+    this.parentEl = this.el.parentElement;
+    this.elementTop = this.parentEl.scrollTop;
+    this.elementBottom = this.elementTop + this.parentEl.getBoundingClientRect().height;
 
     if (!!this.scrollSpy.getObservable('window')) {
       // TODO: Remove setTimeout once: https://github.com/angular/angular/issues/7443
@@ -71,7 +70,7 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
 
   update(currentTop: number) {
     if (currentTop >= this.elementTop + this.options.topMargin) {
-      if (currentTop > this.elementBottom - this.options.bottomMargin - getDOM().getBoundingClientRect(this.el).height) {
+      if (currentTop > this.elementBottom - this.options.bottomMargin - this.el.getBoundingClientRect().height) {
         if (this.affixTop || !this.affixBottom) {
           this.ref.markForCheck();
         }

@@ -1,7 +1,15 @@
-import {Directive, Injectable, ElementRef, Input, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
-import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
+import {
+	Directive,
+	Inject,
+	Injectable,
+	ElementRef,
+	Input,
+	OnInit,
+	AfterViewInit,
+	OnDestroy
+} from '@angular/core';
 
-import {ScrollSpyIndexService} from './index.service';
+import { ScrollSpyIndexService } from './index.service';
 
 export interface ScrollSpyIndexOptions {
 	id?: string;
@@ -41,7 +49,7 @@ export class ScrollSpyIndexDirective implements OnInit, AfterViewInit, OnDestroy
 	}
 
 	ngAfterViewInit() {
-		this.scrollSpyIndex.setIndex(this.options.id, getDOM().getElementsByClassName(this.el, this.options.selector));
+		this.scrollSpyIndex.setIndex(this.options.id, this.el.getElementsByClassName(this.options.selector));
 	}
 
 	ngOnDestroy() {

@@ -3,16 +3,14 @@ import {
   Injectable,
   Input,
   ElementRef,
-  DynamicComponentLoader,
+  ComponentFactoryResolver,
   OnInit,
   AfterViewInit,
-  ComponentRef,
   ViewContainerRef,
   ViewChild,
   OnDestroy,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
 
 import { ScrollSpyService } from '../index';
 import { ScrollSpyIndexService } from './index.service';
@@ -31,7 +29,9 @@ export interface ScrollSpyIndexRenderOptions {
 })
 export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input('scrollSpyIndexRender') options: ScrollSpyIndexRenderOptions;
-  @ViewChild('container', {read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
+
+  @ViewChild('container', { read: ViewContainerRef })
+  private viewContainerRef: ViewContainerRef;
 
   private defaultOptions: ScrollSpyIndexRenderOptions = {
     spyId: 'window',
@@ -42,7 +42,6 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
   private scrollStream$: any;
 
   private el: HTMLElement;
-  private _children: Array<ComponentRef<any>> = [];
 
   private stack: Array<any> = [];
   private parentStack: Array<any> = [];
@@ -52,7 +51,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
   private itemsToHighlight: Array<string> = [];
 
   constructor(
-    private loader: DynamicComponentLoader,
+    private resolver: ComponentFactoryResolver,
     private elRef: ElementRef,
     private scrollSpy: ScrollSpyService,
     private scrollSpyIndex: ScrollSpyIndexService
@@ -122,14 +121,11 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
     }
     markup += '</ul>';
 
-    this.removeChildren();
-    this.loader.loadNextToLocation(
-      this.compileToComponent(markup, [], () => this.getItemsToHighlight()),
-      this.viewContainerRef
-    ).then((ref: ComponentRef<any>) => {
-        this._children.push(ref);
-    });
-    //getDOM().setInnerHTML(this.el, markup);
+    this.viewContainerRef.clear();
+    let dynamicComponent = this.compileToComponent(markup, () => this.getItemsToHighlight());
+    let componentFactory = this.resolver.resolveComponentFactory(dynamicComponent);
+    this.viewContainerRef.createComponent(componentFactory);
+
     setTimeout(() => {
       this.calculateHighlight();
     });
@@ -197,7 +193,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 
     var highlightItem: string;
     for (var i = items.length - 1; i >= 0; i--) {
-      if (this.currentScrollPosition - getDOM().getProperty(items[i], 'offsetTop') - this.options.topMargin >= 0) {
+      if (this.currentScrollPosition - items[i].offsetTop - this.options.topMargin >= 0) {
         highlightItem = items[i].id;
         break;
       }
@@ -209,9 +205,9 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
     this.itemsToHighlight.push(highlightItem);
 
     while (!!highlightItem) {
-      var item = getDOM().querySelector(this.el, '[pagemenuspy=' + highlightItem + ']');
+      var item = this.el.querySelector('[pagemenuspy=' + highlightItem + ']');
       if (!!item) {
-        var parent = getDOM().getAttribute(item, 'parent');
+        var parent = item.getAttribute('parent');
         if (parent) {
           highlightItem = parent;
           this.itemsToHighlight.push(highlightItem);
@@ -228,12 +224,11 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
     return this.itemsToHighlight;
   }
 
-  compileToComponent(template: string, directives: Array<any>, itemsToHighlight: any): any {
+  compileToComponent(template: string, itemsToHighlight: any): any {
     @Injectable()
     @Component({
       selector: 'scrollSpyMenu',
-      template,
-      directives
+      template
     })
     class FakeComponent {
       highlight(id: string): boolean {
@@ -241,11 +236,6 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
       }
     };
     return FakeComponent;
-  }
-
-  removeChildren() {
-    this._children.forEach(cmp => cmp.destroy());
-    this._children = [];
   }
 
   ngOnDestroy() {

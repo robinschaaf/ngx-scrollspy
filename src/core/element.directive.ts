@@ -10,7 +10,7 @@ import { ScrollSpyService } from './service';
   }
 })
 export class ScrollSpyElementDirective implements OnInit, OnDestroy {
-	@Input('scrollSpyElement') scrollSpyId: string;
+	@Input('scrollSpyElement') private scrollSpyId: string;
 
 	private scrollStream$: ReplaySubject<any> = new ReplaySubject(1);
 

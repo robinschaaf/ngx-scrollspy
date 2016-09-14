@@ -1,10 +1,4 @@
-import {
-	it,
-	describe,
-	expect
-} from '@angular/core/testing';
-
-import {ScrollSpyIndexService} from './index.service';
+import { ScrollSpyIndexService } from './index.service';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
