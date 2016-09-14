@@ -35,12 +35,19 @@ It is recommended to instantiate `ScrollSpyService` in the bootstrap of your app
 If you add it to the "providers" property of a component it will instantiate a new instance of the service that won't be initialized.
 
 ```js
-import {bootstrap} from '@angular/platform-browser-dynamic';
-import {ScrollSpyService} from 'ng2-scrollspy';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-bootstrap(AppComponent, [
-	ScrollSpyService
-]);
+import { ScrollSpyService } from 'ng2-scrollspy';
+
+@NgModule({
+  imports: [ BrowserModule],
+  declarations: [ AppComponent ], 
+  bootstrap: [ AppComponent ],
+  providers: [ 
+    ScrollSpyService
+  ] 
+})
 ```
 
 ## Using
@@ -50,14 +57,15 @@ bootstrap(AppComponent, [
 Use ```ScrollSpyDirective``` to spy on window.
 
 ```js
-import {Component, Injectable, AfterViewInit} from '@angular/core';
-import {ScrollSpyDirective, ScrollSpyService} from 'ng2-scrollspy';
+import { NgModule, Component, Injectable, AfterViewInit } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { ScrollSpyDirective, ScrollSpyService } from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
 	selector: 'app',
-	template: `<div scrollSpy></div>`,
-	directives: [ScrollSpyDirective]
+	template: `<div scrollSpy></div>`
 })
 export class AppComponent implements AfterViewInit {
 	constructor(scrollSpyService: ScrollSpyService) {
@@ -70,6 +78,18 @@ export class AppComponent implements AfterViewInit {
 		});
 	}
 }
+
+@NgModule({
+  imports: [ BrowserModule ],
+  declarations: [
+  	AppComponent,
+  	ScrollSpyDirective
+  ], 
+  bootstrap: [ AppComponent ],
+  providers: [ 
+    ScrollSpyService
+  ] 
+})
 ```
 
 #### Spy any element scroll
@@ -77,8 +97,8 @@ export class AppComponent implements AfterViewInit {
 Use ```ScrollSpyElementDirective``` to spy on any element. You must git a unique id to each instance.
 
 ```js
-import {Component, Injectable, AfterViewInit} from '@angular/core';
-import {ScrollSpyElementDirective, ScrollSpyService} from 'ng2-scrollspy';
+import { NgModule, Component, Injectable, AfterViewInit } from '@angular/core';
+import { ScrollSpyElementDirective, ScrollSpyService } from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
@@ -86,11 +106,10 @@ import {ScrollSpyElementDirective, ScrollSpyService} from 'ng2-scrollspy';
 	template: `
 	<div scrollSpyElement="test" style="max-height: 100px; overflow: auto;">
 		<div style="height: 500px;"></div>
-	</div>`,
-	directives: [ScrollSpyElementDirective]
+	</div>`
 })
-export class YourComponent implements 
- {
+export class YourComponent implements AfterViewInit {
+
 	constructor(scrollSpyService: ScrollSpyService) {
 		this.scrollSpyService = scrollSpyService;
 	}
@@ -101,6 +120,16 @@ export class YourComponent implements
 		});
 	}
 }
+
+@NgModule({
+  imports: [ ],
+  declarations: [
+  	AppComponent,
+  	ScrollSpyElementDirective
+  ], 
+  providers: [ ] 
+})
+export class YourModule { }
 ```
 
 Because ```ScrollSpyService``` is a singleton, you can get any ScrollSpy observable from anywhere withing your application.
