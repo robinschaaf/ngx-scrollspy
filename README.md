@@ -41,12 +41,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ScrollSpyService } from 'ng2-scrollspy';
 
 @NgModule({
-  imports: [ BrowserModule],
+  imports: [
+  	BrowserModule,
+  	ScrollSpyModule.forRoot()
+  ],
   declarations: [ AppComponent ], 
-  bootstrap: [ AppComponent ],
-  providers: [ 
-    ScrollSpyService
-  ] 
+  bootstrap: [ AppComponent ]
 })
 ```
 
@@ -80,21 +80,20 @@ export class AppComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [ BrowserModule ],
+  imports: [
+  	BrowserModule,
+  	ScrollSpyModule.forRoot()
+  ],
   declarations: [
-  	AppComponent,
-  	ScrollSpyDirective
+  	AppComponent
   ], 
-  bootstrap: [ AppComponent ],
-  providers: [ 
-    ScrollSpyService
-  ] 
+  bootstrap: [ AppComponent ]
 })
 ```
 
 #### Spy any element scroll
 
-Use ```ScrollSpyElementDirective``` to spy on any element. You must git a unique id to each instance.
+Use ```ScrollSpyElementDirective``` to spy on any element. You must give an unique id to each instance.
 
 ```js
 import { NgModule, Component, Injectable, AfterViewInit } from '@angular/core';
@@ -137,7 +136,7 @@ Because ```ScrollSpyService``` is a singleton, you can get any ScrollSpy observa
 # TODO:
 
 * Documentation/examples webpage
-* Unit tests
+* Finish unit tests
 * Test all browsers
 	- [x] Chrome
 	- [ ] Firefox

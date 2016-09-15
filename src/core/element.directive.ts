@@ -4,37 +4,37 @@ import { ScrollSpyService } from './service';
 
 @Injectable()
 @Directive({
-	selector: '[scrollSpyElement]',
-	host: {
+  selector: '[scrollSpyElement]',
+  host: {
     '(scroll)': 'onScroll($event)'
   }
 })
 export class ScrollSpyElementDirective implements OnInit, OnDestroy {
-	@Input('scrollSpyElement') private scrollSpyId: string;
+  @Input('scrollSpyElement') private scrollSpyId: string;
 
-	private scrollStream$: ReplaySubject<any> = new ReplaySubject(1);
+  private scrollStream$: ReplaySubject<any> = new ReplaySubject(1);
 
-	constructor(
-		private scrollSpy: ScrollSpyService
-	) {}
+  constructor(
+    private scrollSpy: ScrollSpyService
+  ) {}
 
-	ngOnInit() {
-		if (!this.scrollSpyId) {
-			return console.warn('ScrollSpy: Missing id.');
-		}
+  ngOnInit() {
+    if (!this.scrollSpyId) {
+      return console.warn('ScrollSpy: Missing id.');
+    }
 
-		if (!!this.scrollSpy.getObservable(this.scrollSpyId)) {
-			console.warn('ScrollSpy: duplicate id "' + this.scrollSpyId + '". Instance will be skipped!');
-		} else {
-			this.scrollSpy.setObservable(this.scrollSpyId, this.scrollStream$);
-		}
-	}
+    if (!!this.scrollSpy.getObservable(this.scrollSpyId)) {
+      console.warn('ScrollSpy: duplicate id "' + this.scrollSpyId + '". Instance will be skipped!');
+    } else {
+      this.scrollSpy.setObservable(this.scrollSpyId, this.scrollStream$);
+    }
+  }
 
-	ngOnDestroy() {
+  ngOnDestroy() {
     this.scrollSpy.deleteObservable(this.scrollSpyId);
   }
 
-	onScroll($event: any) {
-		this.scrollStream$.next($event);
-	}
+  onScroll($event: any) {
+    this.scrollStream$.next($event);
+  }
 }

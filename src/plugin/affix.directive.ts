@@ -63,7 +63,11 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
     if (!!this.scrollSpy.getObservable('window')) {
       // TODO: Remove setTimeout once: https://github.com/angular/angular/issues/7443
       this.scrollStream$ = this.scrollSpy.getObservable('window').subscribe((e: any) => {
-        setTimeout(() => this.update(e.target.scrollingElement.scrollTop));
+        if (typeof e.target.scrollingElement !== 'undefined') {
+          setTimeout(() => this.update(e.target.scrollingElement.scrollTop));
+        } else if (typeof e.target.scrollY !== 'undefined') {
+          setTimeout(() => this.update(e.target.scrollY));
+        }
       });
     }
   }
@@ -88,6 +92,7 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
         this.ref.markForCheck();
       }
       this.affixTop = false;
+      this.affixBottom = false;
     }
   }
 
