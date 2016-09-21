@@ -38,7 +38,7 @@ If you add it to the "providers" property of a component it will instantiate a n
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ScrollSpyService } from 'ng2-scrollspy';
+import { ScrollSpyModule } from 'ng2-scrollspy';
 
 @NgModule({
   imports: [
@@ -60,7 +60,7 @@ Use ```ScrollSpyDirective``` to spy on window.
 import { NgModule, Component, Injectable, AfterViewInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ScrollSpyDirective, ScrollSpyService } from 'ng2-scrollspy';
+import { ScrollSpyModule, ScrollSpyService } from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
