@@ -68,9 +68,7 @@ import { ScrollSpyModule, ScrollSpyService } from 'ng2-scrollspy';
 	template: `<div scrollSpy></div>`
 })
 export class AppComponent implements AfterViewInit {
-	constructor(scrollSpyService: ScrollSpyService) {
-		this.scrollSpyService = scrollSpyService;
-	}
+	constructor(private scrollSpyService: ScrollSpyService) {}
 
 	ngAfterViewInit() {
 		this.scrollSpyService.getObservable('window').subscribe((e: any) => {
@@ -109,9 +107,7 @@ import { ScrollSpyElementDirective, ScrollSpyService } from 'ng2-scrollspy';
 })
 export class YourComponent implements AfterViewInit {
 
-	constructor(scrollSpyService: ScrollSpyService) {
-		this.scrollSpyService = scrollSpyService;
-	}
+	constructor(private scrollSpyService: ScrollSpyService) {}
 
 	ngAfterViewInit() {
 		this.scrollSpyService.getObservable('test').subscribe((e: any) => {
