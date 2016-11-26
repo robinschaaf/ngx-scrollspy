@@ -36,7 +36,7 @@ describe('plugin parallax.directive', () => {
         fixture = createRoot(RootCmp);
         advance(fixture);
 
-        window.scrollTo(0, 3000);
+        window.scrollTo(0, 1000);
         var evt = document.createEvent('UIEvents');
         evt.initUIEvent('scroll', true, true, window, 1);
         window.dispatchEvent(evt);
@@ -44,7 +44,7 @@ describe('plugin parallax.directive', () => {
 
         let element = fixture.debugElement.nativeElement.children[0];
 
-        expect(element.style.backgroundPositionY).toEqual('-1789.9px');
+        expect(element.style.backgroundPositionY).toEqual('-700px');
       })));
 
   it('should work on element',
@@ -73,7 +73,7 @@ describe('plugin parallax.directive', () => {
         fixture = createRoot(RootCmp);
         advance(fixture);
 
-        window.scrollTo(0, 3000);
+        window.scrollTo(0, 1000);
         var evt = document.createEvent('UIEvents');
         evt.initUIEvent('scroll', true, true, window, 1);
         window.dispatchEvent(evt);
@@ -81,7 +81,7 @@ describe('plugin parallax.directive', () => {
 
         let element = fixture.debugElement.nativeElement.children[0];
 
-        expect(element.style.backgroundPositionY).not.toEqual('-1789.9px');
+        expect(element.style.backgroundPositionY).toEqual('');
       })));
 
   xit('should do horizontal parallax',
