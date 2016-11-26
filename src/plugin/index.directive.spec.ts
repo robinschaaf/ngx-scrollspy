@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 
 import { advance, createRoot } from '../test.mocks';
 
-import { ScrollSpyModule } from '../../index';
+import { ScrollSpyModule } from '../index';
 import { ScrollSpyIndexDirective } from './index.directive';
 import { ScrollSpyIndexService } from './index.service';
 
@@ -21,6 +21,10 @@ describe('plugin index.directive', () => {
         ScrollSpyIndexDirective
       ]
     });
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('should create index respecting id and selector options',

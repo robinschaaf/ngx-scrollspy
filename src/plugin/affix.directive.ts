@@ -19,8 +19,9 @@ export interface ScrollSpyAffixOptions {
 @Directive({
   selector: '[scrollSpyAffix]',
   host: {
-    '[class.affixTop]': 'affixTop',
-    '[class.affixBottom]': 'affixBottom'
+    '[class.affix]': 'affix',
+    '[class.affix-top]': 'affixTop',
+    '[class.affix-bottom]': 'affixBottom'
   }
 })
 export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
@@ -38,6 +39,7 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
 
   private elementTop: number;
   private elementBottom: number;
+  private affix: boolean = false;
   private affixTop: boolean = false;
   private affixBottom: boolean = false;
 
@@ -80,12 +82,14 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
         }
         this.affixTop = false;
         this.affixBottom = true;
+        this.affix = true;
       } else {
         if (!this.affixTop || this.affixBottom) {
           this.ref.markForCheck();
         }
         this.affixTop = true;
         this.affixBottom = false;
+        this.affix = true;
       }
     } else {
       if (this.affixTop) {
@@ -93,6 +97,7 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
       }
       this.affixTop = false;
       this.affixBottom = false;
+      this.affix = false;
     }
   }
 

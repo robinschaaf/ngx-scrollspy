@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 
 import { advance, createRoot } from '../test.mocks';
 
-import { ScrollSpyModule } from '../../index';
+import { ScrollSpyModule } from '../index';
 import { ScrollSpyAffixDirective } from './affix.directive';
 
 describe('plugin affix.directive', () => {
@@ -22,6 +22,10 @@ describe('plugin affix.directive', () => {
     });
   });
 
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
   it('should affix class affixTop',
     fakeAsync(inject([],
       () => {
@@ -35,7 +39,8 @@ describe('plugin affix.directive', () => {
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).toEqual('affixTop');
+        expect(compiled.className).toContain('affix');
+        expect(compiled.className).toContain('affix-top');
       })));
 
   it('should affix class affixBottom',
@@ -50,7 +55,8 @@ describe('plugin affix.directive', () => {
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).toEqual('affixBottom');
+        expect(compiled.className).toContain('affix');
+        expect(compiled.className).toContain('affix-bottom');
       })));
 
   it('should remove class affixTop',
@@ -65,13 +71,15 @@ describe('plugin affix.directive', () => {
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).toEqual('affixTop');
+        expect(compiled.className).toContain('affix');
+        expect(compiled.className).toContain('affix-top');
 
         window.scrollTo(0, 0);
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).not.toEqual('affixTop');
+        expect(compiled.className).not.toContain('affix');
+        expect(compiled.className).not.toContain('affix-top');
       })));
 
   it('should remove class affixBottom',
@@ -86,13 +94,15 @@ describe('plugin affix.directive', () => {
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).toEqual('affixBottom');
+        expect(compiled.className).toContain('affix');
+        expect(compiled.className).toContain('affix-bottom');
 
         window.scrollTo(0, 0);
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).not.toEqual('affixBottom');
+        expect(compiled.className).not.toContain('affix');
+        expect(compiled.className).not.toContain('affix-bottom');
       })));
 
   it('should respect topMargin',
@@ -107,7 +117,8 @@ describe('plugin affix.directive', () => {
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).not.toEqual('affixTop');
+        expect(compiled.className).not.toContain('affix');
+        expect(compiled.className).not.toContain('affix-top');
       })));
 
   it('should respect bottomMargin',
@@ -122,7 +133,8 @@ describe('plugin affix.directive', () => {
         window.dispatchEvent(evt);
         advance(fixture);
 
-        expect(compiled.className).not.toEqual('affixBottom');
+        expect(compiled.className).toContain('affix');
+        expect(compiled.className).not.toContain('affix-bottom');
       })));
 });
 

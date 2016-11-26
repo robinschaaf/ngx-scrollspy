@@ -3,7 +3,6 @@ import {
   Injectable,
   Input,
   Output,
-  ElementRef,
   EventEmitter,
   OnInit,
   AfterViewInit,
@@ -34,16 +33,9 @@ export class ScrollSpyInfiniteDirective implements OnInit, AfterViewInit, OnDest
 
   private scrollStream$: any;
 
-  private el: HTMLElement;
-
-  private currentScrollElement: any;
-
   constructor(
-    private elRef: ElementRef,
     private scrollSpy: ScrollSpyService
-  ) {
-    this.el = elRef.nativeElement;
-  }
+  ) {}
 
   ngOnInit() {
     if (!this.options) {
@@ -60,28 +52,39 @@ export class ScrollSpyInfiniteDirective implements OnInit, AfterViewInit, OnDest
   ngAfterViewInit() {
     if (!!this.scrollSpy.getObservable(this.options.spyId)) {
       this.scrollStream$ = this.scrollSpy.getObservable(this.options.spyId).throttleTime(200).subscribe((e: any) => {
-        if (this.options.spyId === 'window') {
-          this.currentScrollElement = e.target;
-        } else {
-          this.currentScrollElement = e.target;
+        if (!this.scrollSpyInfiniteDisabled) {
+          this.evaluateScroll(e.target);
         }
-        this.evaluateScroll();
       });
     } else {
       return console.warn('ScrollSpyInfinite: No ScrollSpy observable for id "' + this.options.spyId + '"');
     }
   }
 
-  evaluateScroll() {
-    if (!this.scrollSpyInfiniteDisabled) {
-      if (this.options.spyId === 'window') {
-        if (this.currentScrollElement.scrollingElement.scrollHeight - this.currentScrollElement.scrollingElement.scrollTop - this.currentScrollElement.documentElement.clientHeight <= this.currentScrollElement.documentElement.clientHeight * this.options.distanceRatio + 1) {
-          this.scrollSpyInfiniteEvent.next({});
-        }
-      } else {
-        if (this.currentScrollElement.scrollHeight - this.currentScrollElement.scrollTop - this.currentScrollElement.offsetHeight <= this.currentScrollElement.offsetHeight * this.options.distanceRatio + 1) {
-          this.scrollSpyInfiniteEvent.next({});
-        }
+  evaluateScroll(target: any) {
+    if (this.options.spyId === 'window') {
+      const scrollHeight = target.document.documentElement.scrollHeight;
+      const scrollTop = target.scrollY;
+      const offsetHeight = target.document.documentElement.clientHeight;
+
+      if (scrollHeight - scrollTop - offsetHeight <= offsetHeight * this.options.distanceRatio) {
+        this.scrollSpyInfiniteEvent.next({});
+      }
+    } else {
+      const scrollHeight = target.scrollingElement ?
+        target.scrollingElement.scrollHeight
+        : target.scrollHeight;
+
+      const scrollTop = target.scrollingElement ?
+        target.scrollingElement.scrollTop
+        : target.scrollTop;
+
+      const offsetHeight = target.scrollingElement ?
+        target.scrollingElement.offsetHeight
+        : target.offsetHeight;
+
+      if (scrollHeight - scrollTop - offsetHeight <= offsetHeight * this.options.distanceRatio) {
+        this.scrollSpyInfiniteEvent.next({});
       }
     }
   }

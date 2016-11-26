@@ -133,14 +133,6 @@ Because ```ScrollSpyService``` is a singleton, you can get any ScrollSpy observa
 
 * Documentation/examples webpage
 * Finish unit tests
-* Test all browsers
-	- [x] Chrome
-	- [ ] Firefox
-	- [ ] Safari
-	- [ ] IE
-	- [ ] edge
-	- [ ] opera
-	- [ ] Mobile
 
 ## License
 

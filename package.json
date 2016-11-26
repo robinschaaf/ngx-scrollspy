@@ -2,15 +2,13 @@
   "name": "ng2-scrollspy",
   "description": "Angular2 ScrollSpy Service",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
-  "dependencies": {
-    "immutable": "^3.8.1"
-  },
   "devDependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/compiler": "^2.0.0",
-    "@angular/core": "^2.0.0",
-    "@angular/platform-browser": "^2.0.0",
-    "@angular/platform-browser-dynamic": "^2.0.0",
+    "@angular/common": "^2.1.2",
+    "@angular/compiler": "^2.1.2",
+    "@angular/compiler-cli": "^2.1.2",
+    "@angular/core": "^2.1.2",
+    "@angular/platform-browser": "^2.1.2",
+    "@angular/platform-browser-dynamic": "^2.1.2",
     "@types/core-js": "^0.9.32",
     "@types/jasmine": "^2.2.29",
     "@types/node": "6.0.38",
@@ -30,8 +28,9 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
     "reflect-metadata": "^0.1.3",
+    "rimraf": "^2.5.2",
     "rxjs": "5.0.0-beta.12",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "^6.3.2",
     "source-map-loader": "^0.1.5",
     "systemjs": "^0.19.38",
     "ts-helpers": "^1.1.1",
@@ -39,21 +38,25 @@
     "tslint-loader": "^2.1.5",
     "typescript": "2.0.2",
     "webpack": "^1.13.2",
-    "zone.js": "0.6.21"
+    "zone.js": "^0.6.21"
   },
   "bugs": {
     "url": "http://github.com/jonnybgod/ng2-scrollspy/issues"
   },
   "scripts": {
-    "lint": "tslint ./*.ts ./src/{,*/}*.ts",
+    "rimraf": "rimraf",
+    "lint": "tslint ./src/{,*/}*.ts",
     "test": "tsc && karma start",
     "test-watch": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
+    "clean": "npm cache clean && npm run rimraf -- node_modules dist",
+    "preclean:install": "npm run clean",
+    "clean:install": "npm set progress=false && npm i",
     "commit": "git-cz",
-    "build": "tsc -d",
+    "build": "tsc -d && ngc",
     "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
-  "main": "./index.js",
-  "typings": "./index.d.ts",
+  "main": "./dist/index",
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnybgod/ng2-scrollspy.git"

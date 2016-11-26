@@ -69,8 +69,6 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
 
   private el: HTMLElement;
 
-  private currentScrollPosition: number;
-
   private cssValue: string;
   private isSpecialVal: boolean = false;
 
@@ -121,46 +119,50 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
   ngAfterViewInit() {
     if (!!this.scrollSpy.getObservable(this.options.spyId)) {
       this.scrollStream$ = this.scrollSpy.getObservable(this.options.spyId).subscribe((e: any) => {
-        if (this.options.spyId === 'window') {
-          this.currentScrollPosition = e.target.scrollingElement.scrollTop;
-        } else {
-          this.currentScrollPosition = e.target.scrollTop;
+        if (!this.scrollSpyParallaxDisabled) {
+          this.evaluateScroll(e.target);
         }
-        this.evaluateScroll();
       });
     } else {
       return console.warn('ScrollSpyParallax: No ScrollSpy observable for id "' + this.options.spyId + '"');
     }
   }
 
-  evaluateScroll() {
-    if (!this.scrollSpyParallaxDisabled) {
-      let result: string;
-      let value: number;
-
-      value = this.currentScrollPosition * this.options.ratio + this.options.initValue;
-
-      if (this.options.max !== undefined && this.currentScrollPosition >= this.options.max) {
-        this.currentScrollPosition = this.options.max;
-      } else if (this.options.min !== undefined && this.currentScrollPosition <= this.options.min) {
-        this.currentScrollPosition = this.options.min;
-      }
-
-      // added after realizing original setup wasn't compatible in Firefox debugger;
-      if (this.options.cssKey === 'backgroundPosition') {
-        if (this.options.axis === 'X') {
-          result = value + this.options.unit + ' 0';
-        } else {
-          result = '0 ' + value + this.options.unit;
-        }
-      } else if (this.isSpecialVal) {
-        result = this.cssValue + '(' + value + this.options.unit + ')';
-      } else {
-        result = value + this.options.unit;
-      }
-
-      this.renderer.setElementStyle(this.el, this.options.cssKey, result);
+  evaluateScroll(target: any) {
+    let currentScrollPosition: number;
+    if (this.options.spyId === 'window') {
+      currentScrollPosition = target.scrollY;
+    } else {
+      currentScrollPosition = target.scrollingElement ?
+        target.scrollingElement.scrollTop
+        : target.scrollTop;
     }
+
+    let result: string;
+    let value: number;
+
+    value = currentScrollPosition * this.options.ratio + this.options.initValue;
+    
+    if (this.options.max !== undefined && currentScrollPosition >= this.options.max) {
+      currentScrollPosition = this.options.max;
+    } else if (this.options.min !== undefined && currentScrollPosition <= this.options.min) {
+      currentScrollPosition = this.options.min;
+    }
+
+    // added after realizing original setup wasn't compatible in Firefox debugger;
+    if (this.options.cssKey === 'backgroundPosition') {
+      if (this.options.axis === 'X') {
+        result = value + this.options.unit + ' 0';
+      } else {
+        result = '0 ' + value + this.options.unit;
+      }
+    } else if (this.isSpecialVal) {
+      result = this.cssValue + '(' + value + this.options.unit + ')';
+    } else {
+      result = value + this.options.unit;
+    }
+
+    this.renderer.setElementStyle(this.el, this.options.cssKey, result);
   }
 
   ngOnDestroy() {

@@ -20,26 +20,11 @@
       "jasmine",
       "node"
     ],
-    "lib": ["es2015", "dom"]
+    "lib": ["es2015", "dom"],
+    "outDir": "dist"
   },
   "files": [
-    "index.ts",
-    "src/index.ts",
-    "src/core/element.directive.ts",
-    "src/core/service.spec.ts",
-    "src/core/service.ts",
-    "src/core/window.directive.ts",
-    "src/plugin/affix.directive.ts",
-    "src/plugin/affix.ts",
-    "src/plugin/index.directive.ts",
-    "src/plugin/index.render.directive.ts",
-    "src/plugin/index.service.spec.ts",
-    "src/plugin/index.service.ts",
-    "src/plugin/index.ts",
-    "src/plugin/infinite.directive.ts",
-    "src/plugin/infinite.ts",
-    "src/plugin/parallax.directive.ts",
-    "src/plugin/parallax.ts"
+    "src/index.ts"
   ],
   "compileOnSave": false,
   "angularCompilerOptions": {

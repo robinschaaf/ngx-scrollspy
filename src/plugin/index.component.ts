@@ -1,5 +1,8 @@
 import {
+  NgModule,
   Component,
+  Compiler,
+  ChangeDetectorRef,
   Injectable,
   Input,
   ElementRef,
@@ -15,7 +18,7 @@ import {
 import { ScrollSpyService } from '../index';
 import { ScrollSpyIndexService } from './index.service';
 
-export interface ScrollSpyIndexRenderOptions {
+export interface ScrollSpyIndexComponentOptions {
   id?: string;
   spyId?: string;
   topMargin?: number;
@@ -23,17 +26,17 @@ export interface ScrollSpyIndexRenderOptions {
 
 @Injectable()
 @Component({
-  selector: '[scrollSpyIndexRender]',
+  selector: 'scrollSpy-index-render',
   template: `<div #container></div>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input('scrollSpyIndexRender') options: ScrollSpyIndexRenderOptions;
+export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() scrollSpyIndexRenderOptions: ScrollSpyIndexComponentOptions;
 
   @ViewChild('container', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
 
-  private defaultOptions: ScrollSpyIndexRenderOptions = {
+  private defaultOptions: ScrollSpyIndexComponentOptions = {
     spyId: 'window',
     topMargin: 0
   };
@@ -51,6 +54,8 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
   private itemsToHighlight: Array<string> = [];
 
   constructor(
+    private compiler: Compiler,
+    private ref: ChangeDetectorRef,
     private resolver: ComponentFactoryResolver,
     private elRef: ElementRef,
     private scrollSpy: ScrollSpyService,
@@ -60,18 +65,18 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
   }
 
   ngOnInit() {
-    if (!this.options) {
-      this.options = {};
+    if (!this.scrollSpyIndexRenderOptions) {
+      this.scrollSpyIndexRenderOptions = {};
     }
 
-    if (!this.options.id) {
+    if (!this.scrollSpyIndexRenderOptions.id) {
       return console.warn('ScrollSpyIndex: Missing id.');
     }
 
-    this.options = Object.assign(this.defaultOptions, this.options);
+    this.scrollSpyIndexRenderOptions = Object.assign(this.defaultOptions, this.scrollSpyIndexRenderOptions);
 
     this.changeStream$ = this.scrollSpyIndex.changes$.subscribe((e: any) => {
-      if (e.index === this.options.id) {
+      if (e.index === this.scrollSpyIndexRenderOptions.id) {
         if (e.change === 'delete') {
           this.update();
         } else if (e.change === 'set') {
@@ -82,22 +87,22 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
   }
 
   ngAfterViewInit() {
-    if (!!this.scrollSpy.getObservable(this.options.spyId)) {
-      this.scrollStream$ = this.scrollSpy.getObservable(this.options.spyId).subscribe((e: any) => {
-        if (this.options.spyId === 'window') {
+    if (!!this.scrollSpy.getObservable(this.scrollSpyIndexRenderOptions.spyId)) {
+      this.scrollStream$ = this.scrollSpy.getObservable(this.scrollSpyIndexRenderOptions.spyId).subscribe((e: any) => {
+        if (typeof e.target.scrollingElement !== 'undefined') {
           this.currentScrollPosition = e.target.scrollingElement.scrollTop;
-        } else {
-          this.currentScrollPosition = e.target.scrollTop;
+        } else if (typeof e.target.scrollY !== 'undefined') {
+          this.currentScrollPosition = e.target.scrollY;
         }
         this.calculateHighlight();
       });
     } else {
-      return console.warn('ScrollSpyIndexRender: No ScrollSpy observable for id "' + this.options.spyId + '"');
+      return console.warn('ScrollSpyIndexComponent: No ScrollSpy observable for id "' + this.scrollSpyIndexRenderOptions.spyId + '"');
     }
   }
 
   update() {
-    var items: Array<any> = this.scrollSpyIndex.getIndex(this.options.id) || [];
+    var items: Array<any> = this.scrollSpyIndex.getIndex(this.scrollSpyIndexRenderOptions.id) || [];
     var markup: string = '<ul class="nav menu">';
 
     for (var i = 0; i < items.length; i++) {
@@ -122,8 +127,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
     markup += '</ul>';
 
     this.viewContainerRef.clear();
-    let dynamicComponent = this.compileToComponent(markup, () => this.getItemsToHighlight());
-    let componentFactory = this.resolver.resolveComponentFactory(dynamicComponent);
+    let componentFactory = this.compileToComponent(markup, () => this.getItemsToHighlight());
     this.viewContainerRef.createComponent(componentFactory);
 
     setTimeout(() => {
@@ -184,7 +188,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
   }
 
   calculateHighlight() {
-    var items: Array<any> = this.scrollSpyIndex.getIndex(this.options.id);
+    var items: Array<any> = this.scrollSpyIndex.getIndex(this.scrollSpyIndexRenderOptions.id);
     this.itemsToHighlight = [];
 
     if (!items || !items.length) {
@@ -193,7 +197,7 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
 
     var highlightItem: string;
     for (var i = items.length - 1; i >= 0; i--) {
-      if (this.currentScrollPosition - items[i].offsetTop - this.options.topMargin >= 0) {
+      if (this.currentScrollPosition - (items[i].offsetTop + this.scrollSpyIndexRenderOptions.topMargin) >= 0) {
         highlightItem = items[i].id;
         break;
       }
@@ -218,6 +222,8 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
         highlightItem = null;
       }
     }
+
+    this.ref.markForCheck();
   }
 
   getItemsToHighlight(): Array<string> {
@@ -230,12 +236,19 @@ export class ScrollSpyIndexRenderDirective implements OnInit, AfterViewInit, OnD
       selector: 'scrollSpyMenu',
       template
     })
-    class FakeComponent {
+    class RenderComponent {
       highlight(id: string): boolean {
         return itemsToHighlight().indexOf(id) !== -1;
       }
     };
-    return FakeComponent;
+
+    @NgModule({declarations: [RenderComponent]})
+    class RenderModule {}
+
+    return this.compiler.compileModuleAndAllComponentsSync(RenderModule)
+      .componentFactories.find((comp) =>
+        comp.componentType === RenderComponent
+      );
   }
 
   ngOnDestroy() {
