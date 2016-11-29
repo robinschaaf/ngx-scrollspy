@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { advance, createRoot } from '../test.mocks';
 
@@ -14,6 +16,7 @@ describe('plugin index.render.directive', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         ScrollSpyModule.forRoot()
       ],
       declarations: [
@@ -37,7 +40,7 @@ describe('plugin index.render.directive', () => {
         let compiled = fixture.debugElement.nativeElement;
         let match = compiled.getElementsByTagName('scrollspymenu')[0].outerHTML;
 
-        expect(match).toEqual('<scrollspymenu><ul class="nav menu"><li pagemenuspy="test1" parent="" class="active"><a href="#test1">test1</a></li><li pagemenuspy="test2" parent=""><a href="#test2">test2</a></li><li pagemenuspy="test3" parent=""><a href="#test3">test3</a></li></ul></scrollspymenu>');
+        expect(match).toEqual('<scrollspymenu><ul class="nav menu"><li pagemenuspy="test1" parent="" class="active"><a fragment="test1" ng-reflect-fragment="test1" ng-reflect-href="/#test1" href="/#test1">test1</a></li><li pagemenuspy="test2" parent=""><a fragment="test2" ng-reflect-fragment="test2" ng-reflect-href="/#test2" href="/#test2">test2</a></li><li pagemenuspy="test3" parent=""><a fragment="test3" ng-reflect-fragment="test3" ng-reflect-href="/#test3" href="/#test3">test3</a></li></ul></scrollspymenu>');
       })));
 
   it('should highlight base on spyId',
@@ -54,7 +57,7 @@ describe('plugin index.render.directive', () => {
         advance(fixture);
 
         let match = compiled.getElementsByClassName('active')[0].outerHTML;
-        expect(match).toEqual('<li pagemenuspy="test1" parent="" class="active"><a href="#test1">test1</a></li>');
+        expect(match).toEqual('<li pagemenuspy="test1" parent="" class="active"><a fragment="test1" ng-reflect-fragment="test1" ng-reflect-href="/#test1" href="/#test1">test1</a></li>');
 
         window.scrollTo(0, 1100);
         evt.initUIEvent('scroll', true, true, window, 1);
@@ -62,7 +65,7 @@ describe('plugin index.render.directive', () => {
         advance(fixture);
 
         match = compiled.getElementsByClassName('active')[0].outerHTML;
-        expect(match).toEqual('<li pagemenuspy="test2" parent="" class="active"><a href="#test2">test2</a></li>');
+        expect(match).toEqual('<li pagemenuspy="test2" parent="" class="active"><a fragment="test2" ng-reflect-fragment="test2" ng-reflect-href="/#test2" href="/#test2">test2</a></li>');
       })));
 
   it('should highlight respecting topMargin',
@@ -79,7 +82,7 @@ describe('plugin index.render.directive', () => {
         advance(fixture);
 
         let match = compiled.getElementsByClassName('active')[0].outerHTML;
-        expect(match).toEqual('<li pagemenuspy="test1" parent="" class="active"><a href="#test1">test1</a></li>');
+        expect(match).toEqual('<li pagemenuspy="test1" parent="" class="active"><a fragment="test1" ng-reflect-fragment="test1" ng-reflect-href="/#test1" href="/#test1">test1</a></li>');
 
         window.scrollTo(0, 900);
         evt.initUIEvent('scroll', true, true, window, 1);
@@ -87,7 +90,7 @@ describe('plugin index.render.directive', () => {
         advance(fixture);
 
         match = compiled.getElementsByClassName('active')[0].outerHTML;
-        expect(match).toEqual('<li pagemenuspy="test2" parent="" class="active"><a href="#test2">test2</a></li>');
+        expect(match).toEqual('<li pagemenuspy="test2" parent="" class="active"><a fragment="test2" ng-reflect-fragment="test2" ng-reflect-href="/#test2" href="/#test2">test2</a></li>');
       })));
 });
 
