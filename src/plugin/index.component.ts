@@ -14,6 +14,7 @@ import {
   OnDestroy,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { ScrollSpyService } from '../index';
 import { ScrollSpyIndexService } from './index.service';
@@ -120,7 +121,8 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
 
       markup += '<li [class.active]="highlight(\'' + item.link + '\')" pagemenuspy="' + item.link + '" parent="' + item.parent + '">';
 
-      markup += '<a href="#' + item.link + '">';
+      // HACK: remove click once https://github.com/angular/angular/issues/6595 is fixed
+      markup += '<a [routerLink]="" fragment="' + item.link + '" (click)="goTo(\'' + item.link + '\')">';
       markup += item.text;
       markup += '</a>';
     }
@@ -240,9 +242,16 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
       highlight(id: string): boolean {
         return itemsToHighlight().indexOf(id) !== -1;
       }
+
+      // HACK: remove click once https://github.com/angular/angular/issues/6595 is fixed
+      goTo(anchor: string) {
+        setTimeout(() => {
+            document.querySelector('#' + anchor).scrollIntoView();
+        });
+      }
     };
 
-    @NgModule({declarations: [RenderComponent]})
+    @NgModule({imports: [RouterModule], declarations: [RenderComponent]})
     class RenderModule {}
 
     return this.compiler.compileModuleAndAllComponentsSync(RenderModule)

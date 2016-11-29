@@ -9,6 +9,7 @@
     "@angular/core": "^2.1.2",
     "@angular/platform-browser": "^2.1.2",
     "@angular/platform-browser-dynamic": "^2.1.2",
+    "@angular/router": "^3.2.3",
     "@types/core-js": "^0.9.32",
     "@types/jasmine": "^2.2.29",
     "@types/node": "6.0.38",
