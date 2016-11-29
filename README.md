@@ -6,7 +6,6 @@
 
 [![Github Releases](https://img.shields.io/github/downloads/JonnyBGod/ng2-scrollspy/latest/total.svg)]()
 
-
 You can use this angular2 service to spy scroll events from ```window``` or any other scrollable element.
 
 This library implements an service to collect observables from scroll spy directives. It can be used to create you own components or if you prefer use on of the following components that leverage this library functionality to accomplish different behaviors:
