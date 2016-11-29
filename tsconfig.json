@@ -24,7 +24,11 @@
     "outDir": "dist"
   },
   "files": [
-    "src/index.ts"
+    "src/index.ts",
+    "src/plugin/affix.ts",
+    "src/plugin/index.ts",
+    "src/plugin/infinite.ts",
+    "src/plugin/parallax.ts"
   ],
   "compileOnSave": false,
   "angularCompilerOptions": {
