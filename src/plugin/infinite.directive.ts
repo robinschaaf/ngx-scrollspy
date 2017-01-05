@@ -26,12 +26,12 @@ export class ScrollSpyInfiniteDirective implements OnInit, AfterViewInit, OnDest
 
   @Output() public scrollSpyInfiniteEvent: EventEmitter<any> = new EventEmitter();
 
-  private defaultOptions: ScrollSpyInfiniteOptions = {
+  public defaultOptions: ScrollSpyInfiniteOptions = {
     spyId: 'window',
     distanceRatio: 1
   };
 
-  private scrollStream$: any;
+  public scrollStream$: any;
 
   constructor(
     private scrollSpy: ScrollSpyService

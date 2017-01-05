@@ -57,7 +57,7 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
   public cssValue: string;
   public isSpecialVal: boolean = false;
   
-  private defaultOptions: ScrollSpyParallaxOptions = {
+  public defaultOptions: ScrollSpyParallaxOptions = {
     spyId: 'window',
     horizontal: false,
     cssKey: 'backgroundPosition',
@@ -68,9 +68,9 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
     axis: 'Y'
   };
 
-  private scrollStream$: any;
+  public scrollStream$: any;
 
-  private el: HTMLElement;
+  public el: HTMLElement;
 
   constructor(
     private renderer: Renderer,

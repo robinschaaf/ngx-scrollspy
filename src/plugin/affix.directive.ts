@@ -33,15 +33,15 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
   public affixTop: boolean = false;
   public affixBottom: boolean = false;
   
-  private defaultOptions: ScrollSpyAffixOptions = {
+  public defaultOptions: ScrollSpyAffixOptions = {
     topMargin: 0,
     bottomMargin: 0
   };
 
-  private scrollStream$: any;
+  public scrollStream$: any;
 
-  private el: HTMLElement;
-  private parentEl: any;
+  public el: HTMLElement;
+  public parentEl: any;
 
   constructor(
     private ref: ChangeDetectorRef,

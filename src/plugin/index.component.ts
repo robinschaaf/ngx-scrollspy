@@ -42,17 +42,17 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
   public itemsToHighlight: Array<string> = [];
   
   @ViewChild('container', { read: ViewContainerRef })
-  private viewContainerRef: ViewContainerRef;
+  public viewContainerRef: ViewContainerRef;
 
-  private defaultOptions: ScrollSpyIndexComponentOptions = {
+  public defaultOptions: ScrollSpyIndexComponentOptions = {
     spyId: 'window',
     topMargin: 0
   };
 
-  private changeStream$: any;
-  private scrollStream$: any;
+  public changeStream$: any;
+  public scrollStream$: any;
 
-  private el: HTMLElement;
+  public el: HTMLElement;
 
   constructor(
     private compiler: Compiler,
