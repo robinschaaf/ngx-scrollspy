@@ -21,10 +21,10 @@ export interface ScrollSpyInfiniteOptions {
   selector: '[scrollSpyInfinite]'
 })
 export class ScrollSpyInfiniteDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input('scrollSpyInfinite') options: ScrollSpyInfiniteOptions;
-  @Input() scrollSpyInfiniteDisabled: boolean;
+  @Input('scrollSpyInfinite') public options: ScrollSpyInfiniteOptions;
+  @Input() public scrollSpyInfiniteDisabled: boolean;
 
-  @Output() scrollSpyInfiniteEvent: EventEmitter<any> = new EventEmitter();
+  @Output() public scrollSpyInfiniteEvent: EventEmitter<any> = new EventEmitter();
 
   private defaultOptions: ScrollSpyInfiniteOptions = {
     spyId: 'window',

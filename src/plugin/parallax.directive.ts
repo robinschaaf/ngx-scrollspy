@@ -51,9 +51,12 @@ export interface ScrollSpyParallaxOptions {
   selector: '[scrollSpyParallax]'
 })
 export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input('scrollSpyParallax') options: ScrollSpyParallaxOptions;
-  @Input() scrollSpyParallaxDisabled: boolean;
+  @Input('scrollSpyParallax') public options: ScrollSpyParallaxOptions;
+  @Input() public scrollSpyParallaxDisabled: boolean;
 
+  public cssValue: string;
+  public isSpecialVal: boolean = false;
+  
   private defaultOptions: ScrollSpyParallaxOptions = {
     spyId: 'window',
     horizontal: false,
@@ -68,9 +71,6 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
   private scrollStream$: any;
 
   private el: HTMLElement;
-
-  private cssValue: string;
-  private isSpecialVal: boolean = false;
 
   constructor(
     private renderer: Renderer,

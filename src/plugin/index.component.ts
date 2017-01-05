@@ -32,8 +32,15 @@ export interface ScrollSpyIndexComponentOptions {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() scrollSpyIndexRenderOptions: ScrollSpyIndexComponentOptions;
+  @Input() public scrollSpyIndexRenderOptions: ScrollSpyIndexComponentOptions;
 
+  public stack: Array<any> = [];
+  public parentStack: Array<any> = [];
+  public lastItem: any;
+
+  public currentScrollPosition: number;
+  public itemsToHighlight: Array<string> = [];
+  
   @ViewChild('container', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
 
@@ -46,13 +53,6 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
   private scrollStream$: any;
 
   private el: HTMLElement;
-
-  private stack: Array<any> = [];
-  private parentStack: Array<any> = [];
-  private lastItem: any;
-
-  private currentScrollPosition: number;
-  private itemsToHighlight: Array<string> = [];
 
   constructor(
     private compiler: Compiler,

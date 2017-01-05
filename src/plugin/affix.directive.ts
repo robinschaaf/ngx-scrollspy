@@ -25,8 +25,14 @@ export interface ScrollSpyAffixOptions {
   }
 })
 export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
-  @Input('scrollSpyAffix') options: ScrollSpyAffixOptions;
+  @Input('scrollSpyAffix') public options: ScrollSpyAffixOptions;
 
+  public elementTop: number;
+  public elementBottom: number;
+  public affix: boolean = false;
+  public affixTop: boolean = false;
+  public affixBottom: boolean = false;
+  
   private defaultOptions: ScrollSpyAffixOptions = {
     topMargin: 0,
     bottomMargin: 0
@@ -36,12 +42,6 @@ export class ScrollSpyAffixDirective implements AfterViewInit, OnDestroy {
 
   private el: HTMLElement;
   private parentEl: any;
-
-  private elementTop: number;
-  private elementBottom: number;
-  private affix: boolean = false;
-  private affixTop: boolean = false;
-  private affixBottom: boolean = false;
 
   constructor(
     private ref: ChangeDetectorRef,

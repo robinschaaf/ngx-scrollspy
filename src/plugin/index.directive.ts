@@ -20,7 +20,7 @@ export interface ScrollSpyIndexOptions {
   selector: '[scrollSpyIndex]'
 })
 export class ScrollSpyIndexDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input('scrollSpyIndex') options: ScrollSpyIndexOptions;
+  @Input('scrollSpyIndex') public options: ScrollSpyIndexOptions;
 
   private defaultOptions: ScrollSpyIndexOptions = {
     selector: 'anchor'
