@@ -1,20 +1,14 @@
 import {
-  NgModule,
   Component,
-  Compiler,
   ChangeDetectorRef,
   Injectable,
   Input,
   ElementRef,
-  ComponentFactoryResolver,
   OnInit,
   AfterViewInit,
-  ViewContainerRef,
-  ViewChild,
   OnDestroy,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import { ScrollSpyService } from '../index';
 import { ScrollSpyIndexService } from './index.service';
@@ -28,21 +22,39 @@ export interface ScrollSpyIndexComponentOptions {
 @Injectable()
 @Component({
   selector: 'scrollSpy-index-render',
-  template: `<div #container></div>`,
+  template: `
+  <div #container>
+    <ul class="nav menu">
+      <li *ngFor="let item of items" [class.active]="highlight(item.link)">
+        <a [routerLink]="" fragment="{{item.link}}" (click)="goTo(item.link)">{{item.text}}</a>
+        <ul *ngIf="item.children.length" class="nav menu">
+          <li *ngFor="let itemChild of item.children" [class.active]="highlight(itemChild.link)">
+            <a [routerLink]="" fragment="{{itemChild.link}}" (click)="goTo(itemChild.link)">{{itemChild.text}}</a>
+            <ul *ngIf="itemChild.children.length" class="nav menu">
+              <li *ngFor="let itemChild1 of itemChild.children" [class.active]="highlight(itemChild1.link)">
+                <a [routerLink]="" fragment="{{itemChild1.link}}" (click)="goTo(itemChild1.link)">{{itemChild1.text}}</a>
+                 <ul *ngIf="itemChild1.children.length" class="nav menu">
+                  <li *ngFor="let itemChild2 of itemChild1.children" [class.active]="highlight(itemChild2.link)">
+                    <a [routerLink]="" fragment="{{itemChild2.link}}" (click)="goTo(itemChild2.link)">{{itemChild2.text}}</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() public scrollSpyIndexRenderOptions: ScrollSpyIndexComponentOptions;
 
-  public stack: Array<any> = [];
-  public parentStack: Array<any> = [];
-  public lastItem: any;
-
   public currentScrollPosition: number;
+  public items: any[] = [];
+  public itemsHash: any = {};
   public itemsToHighlight: Array<string> = [];
-  
-  @ViewChild('container', { read: ViewContainerRef })
-  public viewContainerRef: ViewContainerRef;
 
   public defaultOptions: ScrollSpyIndexComponentOptions = {
     spyId: 'window',
@@ -55,9 +67,7 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
   public el: HTMLElement;
 
   constructor(
-    private compiler: Compiler,
     private ref: ChangeDetectorRef,
-    private resolver: ComponentFactoryResolver,
     private elRef: ElementRef,
     private scrollSpy: ScrollSpyService,
     private scrollSpyIndex: ScrollSpyIndexService
@@ -103,90 +113,81 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
   }
 
   update() {
-    var items: Array<any> = this.scrollSpyIndex.getIndex(this.scrollSpyIndexRenderOptions.id) || [];
-    var markup: string = '<ul class="nav menu">';
+    const data: Array<any> = this.scrollSpyIndex.getIndex(this.scrollSpyIndexRenderOptions.id) || [];
 
-    for (var i = 0; i < items.length; i++) {
-      var item = this.itemConstruct(items[i]);
+    let stack: Array<any> = [];
+    let parentStack: Array<any> = [];
+    let lastItem: any;
 
-      if (item.push) {
-        markup += '<ul class="nav menu">';
-      } else if (item.pop) {
-        for (var j = 0; j < item.pop; j++) {
-          markup += '</li></ul>';
+    this.items = [];
+    this.itemsHash = {};
+
+    for (var i = 0; i < data.length; ++i) {
+      // parse basic info from the dom item
+      var item: any = {
+        link: data[i].id,
+        text: data[i].textContent || data[i].innerText,
+        parents: [],
+        children: []
+      };
+
+      // build type identifier
+      var level: string = data[i].tagName;
+      for (var n = 0; n < data[i].classList.length; n++) {
+        level += ',' + data[i].classList[n];
+      }
+      
+      // here be dragons
+      var stacksize: number = stack.length;
+      if (stacksize === 0) {
+        // we are at the top level and will stay there
+        stack.push(level);
+      } else if (level !== stack[stacksize - 1]) {
+        // traverse the ancestry, looking for a match
+        for (var j = stacksize - 1; j >= 0; j--) {
+          if (level === stack[j]) {
+            break; // found an ancestor
+          }
         }
-      } else if (i !== 0) {
-        markup += '</li>';
+        if (j < 0) {
+          // this is a new submenu item, lets push the stack
+          stack.push(level);
+          parentStack.push(lastItem);
+        } else {
+          // we are either a sibling or higher up the tree,
+          // lets pop the stack if needed
+          while (stack.length > j + 1) {
+            stack.pop();
+            parentStack.pop();
+          }
+        }
       }
 
-      markup += '<li [class.active]="highlight(\'' + item.link + '\')" pagemenuspy="' + item.link + '" parent="' + item.parent + '">';
+      // for next iteration
+      lastItem = item.link;
+      
+      // if we have a parent, lets record it
+      if (parentStack.length > 0) {
+        item.parents = [...parentStack];
 
-      // HACK: remove click once https://github.com/angular/angular/issues/6595 is fixed
-      markup += '<a [routerLink]="" fragment="' + item.link + '" (click)="goTo(\'' + item.link + '\')">';
-      markup += item.text;
-      markup += '</a>';
+        let temp: any = this.items;
+        for (var t = 0; t < parentStack.length; ++t) {
+          if (t < parentStack.length - 1) {
+            temp = temp.filter((e: any) => { return e.link === parentStack[t]; })[0].children;
+          } else {
+            temp.filter((e: any) => { return e.link === parentStack[t]; })[0].children.push(item);
+          }
+        }
+      } else {
+        this.items.push(item);
+      }
+
+      this.itemsHash[item.link] = item;
     }
-    markup += '</ul>';
-
-    this.viewContainerRef.clear();
-    let componentFactory = this.compileToComponent(markup, () => this.getItemsToHighlight());
-    this.viewContainerRef.createComponent(componentFactory);
 
     setTimeout(() => {
       this.calculateHighlight();
     });
-  }
-
-  itemConstruct(data: any) {
-    // parse basic info from the dom item
-    var item: any = {
-      link: data.id,
-      text: data.textContent || data.innerText,
-      parent: ''
-    };
-
-    // build type identifier
-    var level: string = data.tagName;
-    for (var i = 0; i < data.classList.length; i++) {
-      level += ',' + data.classList[i];
-    }
-
-    // here be dragons
-    var stacksize: number = this.stack.length;
-    if (stacksize === 0) {
-      // we are at the top level and will stay there
-      this.stack.push(level);
-    } else if (level !== this.stack[stacksize - 1]) {
-      // traverse the ancestry, looking for a match
-      for (var j = stacksize - 1; j >= 0; j--) {
-        if (level === this.stack[j]) {
-          break; // found an ancestor
-        }
-      }
-      if (j < 0) {
-        // this is a new submenu item, lets push the this.stack
-        this.stack.push(level);
-        item.push = true;
-        this.parentStack.push(this.lastItem);
-      } else {
-        // we are either a sibling or higher up the tree,
-        // lets pop the this.stack if needed
-        item.pop = stacksize - 1 - j;
-        while (this.stack.length > j + 1) {
-          this.stack.pop();
-          this.parentStack.pop();
-        }
-      }
-    }
-
-    // if we have a parent, lets record it
-    if (this.parentStack.length > 0) {
-      item.parent = this.parentStack[this.parentStack.length - 1];
-    }
-
-    // for next iteration
-    this.lastItem = item.link;
-    return item;
   }
 
   calculateHighlight() {
@@ -208,56 +209,19 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
     if (!highlightItem) {
       highlightItem = items[0].id;
     }
-    this.itemsToHighlight.push(highlightItem);
-
-    while (!!highlightItem) {
-      var item = this.el.querySelector('[pagemenuspy=' + highlightItem + ']');
-      if (!!item) {
-        var parent = item.getAttribute('parent');
-        if (parent) {
-          highlightItem = parent;
-          this.itemsToHighlight.push(highlightItem);
-        } else {
-          highlightItem = null;
-        }
-      } else {
-        highlightItem = null;
-      }
-    }
+    this.itemsToHighlight = [highlightItem, ...this.itemsHash[highlightItem].parents];
 
     this.ref.markForCheck();
   }
 
-  getItemsToHighlight(): Array<string> {
-    return this.itemsToHighlight;
+  highlight(id: string): boolean {
+    return this.itemsToHighlight.indexOf(id) !== -1;
   }
 
-  compileToComponent(template: string, itemsToHighlight: any): any {
-    @Injectable()
-    @Component({
-      selector: 'scrollSpyMenu',
-      template
-    })
-    class RenderComponent {
-      highlight(id: string): boolean {
-        return itemsToHighlight().indexOf(id) !== -1;
-      }
-
-      // HACK: remove click once https://github.com/angular/angular/issues/6595 is fixed
-      goTo(anchor: string) {
-        setTimeout(() => {
-            document.querySelector('#' + anchor).scrollIntoView();
-        });
-      }
-    };
-
-    @NgModule({imports: [RouterModule], declarations: [RenderComponent]})
-    class RenderModule {}
-
-    return this.compiler.compileModuleAndAllComponentsSync(RenderModule)
-      .componentFactories.find((comp) =>
-        comp.componentType === RenderComponent
-      );
+  goTo(anchor: string) {
+    setTimeout(() => {
+        document.querySelector('#' + anchor).scrollIntoView();
+    });
   }
 
   ngOnDestroy() {
