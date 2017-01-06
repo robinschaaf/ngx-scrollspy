@@ -4,7 +4,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 import { advance, createRoot } from '../test.mocks';
 
 import { ScrollSpyModule } from '../index';
-import { ScrollSpyIndexDirective } from './index.directive';
+import { ScrollSpyIndexModule } from './index';
 import { ScrollSpyIndexService } from './index.service';
 
 describe('plugin index.directive', () => {
@@ -14,11 +14,11 @@ describe('plugin index.directive', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        ScrollSpyModule.forRoot()
+        ScrollSpyModule.forRoot(),
+        ScrollSpyIndexModule
       ],
       declarations: [
-        RootCmp,
-        ScrollSpyIndexDirective
+        RootCmp
       ]
     });
   });

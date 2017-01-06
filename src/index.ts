@@ -9,6 +9,7 @@ import {
 
 import { ScrollSpyService } from './core/service';
 import { ScrollSpyDirective } from './core/window.directive';
+import { ScrollSpyElementDirective } from './core/element.directive';
 
 import { ScrollSpyIndexService } from './plugin/index.service';
 
@@ -27,8 +28,8 @@ export function provideForRootGuard(scrollSpyService: ScrollSpyService): any {
 }
 
 @NgModule({
-  declarations: [ ScrollSpyDirective ],
-  exports: [ ScrollSpyDirective ]
+  declarations: [ ScrollSpyDirective, ScrollSpyElementDirective ],
+  exports: [ ScrollSpyDirective, ScrollSpyElementDirective ]
 })
 export class ScrollSpyModule {
   constructor(@Optional() @Inject(NG2SCROLLSPY_FORROOT_GUARD) guard: any) {}

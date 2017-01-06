@@ -4,8 +4,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 import { advance, createRoot } from '../test.mocks';
 
 import { ScrollSpyModule } from '../index';
-import { ScrollSpyElementDirective } from '../index';
-import { ScrollSpyParallaxDirective } from './parallax.directive';
+import { ScrollSpyParallaxModule } from './parallax';
 
 describe('plugin parallax.directive', () => {
 
@@ -15,13 +14,12 @@ describe('plugin parallax.directive', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        ScrollSpyModule.forRoot()
+        ScrollSpyModule.forRoot(),
+        ScrollSpyParallaxModule
       ],
       declarations: [
         RootCmp,
-        RootElementCmp,
-        ScrollSpyElementDirective,
-        ScrollSpyParallaxDirective
+        RootElementCmp
       ]
     });
   });

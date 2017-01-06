@@ -4,8 +4,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject, tick } from '@angular/cor
 import { advance, createRoot } from '../test.mocks';
 
 import { ScrollSpyModule } from '../index';
-import { ScrollSpyElementDirective } from '../index';
-import { ScrollSpyInfiniteDirective } from './infinite.directive';
+import { ScrollSpyInfiniteModule } from './infinite';
 
 describe('plugin infinite.directive', () => {
 
@@ -18,13 +17,12 @@ describe('plugin infinite.directive', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ScrollSpyModule.forRoot()
+        ScrollSpyModule.forRoot(),
+        ScrollSpyInfiniteModule
       ],
       declarations: [
         RootCmp,
-        RootElementCmp,
-        ScrollSpyElementDirective,
-        ScrollSpyInfiniteDirective
+        RootElementCmp
       ]
     });
   });

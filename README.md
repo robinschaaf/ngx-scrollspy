@@ -95,7 +95,7 @@ Use ```ScrollSpyElementDirective``` to spy on any element. You must give an uniq
 
 ```js
 import { NgModule, Component, Injectable, AfterViewInit } from '@angular/core';
-import { ScrollSpyElementDirective, ScrollSpyService } from 'ng2-scrollspy';
+import { ScrollSpyModule, ScrollSpyService } from 'ng2-scrollspy';
 
 @Injectable()
 @Component({
@@ -117,10 +117,11 @@ export class YourComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [ ],
+  imports: [
+		ScrollSpyModule
+  ],
   declarations: [
-  	AppComponent,
-  	ScrollSpyElementDirective
+  	AppComponent
   ], 
   providers: [ ] 
 })

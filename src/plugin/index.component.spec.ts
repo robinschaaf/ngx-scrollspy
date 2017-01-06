@@ -6,8 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { advance, createRoot } from '../test.mocks';
 
 import { ScrollSpyModule } from '../index';
-import { ScrollSpyIndexDirective } from './index.directive';
-import { ScrollSpyIndexRenderComponent } from './index.component';
+import { ScrollSpyIndexModule } from './index';
 
 describe('plugin index.render.directive', () => {
 
@@ -17,11 +16,10 @@ describe('plugin index.render.directive', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        ScrollSpyModule.forRoot()
+        ScrollSpyModule.forRoot(),
+        ScrollSpyIndexModule
       ],
       declarations: [
-        ScrollSpyIndexRenderComponent,
-        ScrollSpyIndexDirective,
         RootCmp
       ]
     });

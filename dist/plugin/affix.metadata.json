@@ -1,1 +1,1 @@
-{"__symbolic":"module","version":1,"metadata":{},"exports":[{"from":"./affix.directive"}]}
+{"__symbolic":"module","version":1,"metadata":{"ScrollSpyAffixModule":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"NgModule"},"arguments":[{"declarations":[{"__symbolic":"reference","module":"./affix.directive","name":"ScrollSpyAffixDirective"}],"exports":[{"__symbolic":"reference","module":"./affix.directive","name":"ScrollSpyAffixDirective"}]}]}]}},"exports":[{"from":"./affix.directive"}]}
