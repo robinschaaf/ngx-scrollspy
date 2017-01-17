@@ -24,7 +24,7 @@ export interface ScrollSpyIndexComponentOptions {
   selector: 'scrollSpy-index-render',
   template: `
   <div #container>
-    <ul class="nav menu">
+    <ul class="nav flex-column menu">
       <li *ngFor="let item of items" [class.active]="highlight(item.link)">
         <a [routerLink]="" fragment="{{item.link}}" (click)="goTo(item.link)">{{item.text}}</a>
         <ul *ngIf="item.children.length" class="nav menu">
