@@ -130,12 +130,12 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
 
   evaluateScroll(target: any) {
     let currentScrollPosition: number;
-    if (this.options.spyId === 'window') {
+    if (target.scrollTop) {
+      currentScrollPosition = target.scrollTop;
+    } else if (typeof target.scrollingElement !== 'undefined') {
+      currentScrollPosition = target.scrollingElement.scrollTop;
+    } else if (typeof target.scrollY !== 'undefined') {
       currentScrollPosition = target.scrollY;
-    } else {
-      currentScrollPosition = target.scrollingElement ?
-        target.scrollingElement.scrollTop
-        : target.scrollTop;
     }
 
     let result: string;
