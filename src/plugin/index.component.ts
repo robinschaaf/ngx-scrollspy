@@ -104,6 +104,8 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
           this.currentScrollPosition = e.target.scrollingElement.scrollTop;
         } else if (typeof e.target.scrollY !== 'undefined') {
           this.currentScrollPosition = e.target.scrollY;
+        } else if (typeof e.target.pageYOffset !== 'undefined') {
+          this.currentScrollPosition = e.target.pageYOffset;
         }
         this.calculateHighlight();
       });
@@ -136,7 +138,7 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
       for (var n = 0; n < data[i].classList.length; n++) {
         level += ',' + data[i].classList[n];
       }
-      
+
       // here be dragons
       var stacksize: number = stack.length;
       if (stacksize === 0) {
@@ -165,7 +167,7 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
 
       // for next iteration
       lastItem = item.link;
-      
+
       // if we have a parent, lets record it
       if (parentStack.length > 0) {
         item.parents = [...parentStack];
@@ -220,7 +222,7 @@ export class ScrollSpyIndexRenderComponent implements OnInit, AfterViewInit, OnD
 
   goTo(anchor: string) {
     setTimeout(() => {
-        document.querySelector('#' + anchor).scrollIntoView();
+      document.querySelector('#' + anchor).scrollIntoView();
     });
   }
 
