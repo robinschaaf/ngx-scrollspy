@@ -56,7 +56,7 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
 
   public cssValue: string;
   public isSpecialVal: boolean = false;
-  
+
   public defaultOptions: ScrollSpyParallaxOptions = {
     spyId: 'window',
     horizontal: false,
@@ -136,13 +136,17 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
       currentScrollPosition = target.scrollingElement.scrollTop;
     } else if (typeof target.scrollY !== 'undefined') {
       currentScrollPosition = target.scrollY;
+    } else if (typeof target.pageYOffset !== 'undefined') {
+      currentScrollPosition = target.pageYOffset;
+    } else if (target.parentWindow && target.parentWindow.pageYOffset) {
+      currentScrollPosition = target.parentWindow.pageYOffset;
     }
 
     let result: string;
     let value: number;
 
     value = currentScrollPosition * this.options.ratio + this.options.initValue;
-    
+
     if (this.options.max !== undefined && currentScrollPosition >= this.options.max) {
       currentScrollPosition = this.options.max;
     } else if (this.options.min !== undefined && currentScrollPosition <= this.options.min) {
