@@ -138,3 +138,4 @@ Because ```ScrollSpyService``` is a singleton, you can get any ScrollSpy observa
 ## License
 
 [MIT](LICENSE)
+
