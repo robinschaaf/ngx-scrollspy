@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/JonnyBGod/ng2-scrollspy/badge.svg?branch=master&service=github)](https://coveralls.io/github/JonnyBGod/ng2-scrollspy?branch=master)
 [![devDependency Status](https://david-dm.org/JonnyBGod/ng2-scrollspy/dev-status.svg)](https://david-dm.org/JonnyBGod/ng2-scrollspy#info=devDependencies)
 
-[![Github Releases](https://img.shields.io/github/downloads/JonnyBGod/ng2-scrollspy/latest/total.svg)]()
+[![NPM downloads][https://img.shields.io/npm/dm/ng2-scrollspy.svg]][https://npmjs.org/package/ng2-scrollspy]
 
 You can use this angular2 service to spy scroll events from ```window``` or any other scrollable element.
 
@@ -138,4 +138,3 @@ Because ```ScrollSpyService``` is a singleton, you can get any ScrollSpy observa
 ## License
 
 [MIT](LICENSE)
-
