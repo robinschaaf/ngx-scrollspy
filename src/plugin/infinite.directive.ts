@@ -64,7 +64,7 @@ export class ScrollSpyInfiniteDirective implements OnInit, AfterViewInit, OnDest
   evaluateScroll(target: any) {
     if (this.options.spyId === 'window') {
       const scrollHeight = target.document.documentElement.scrollHeight;
-      const scrollTop = target.scrollY;
+      const scrollTop = target.pageYOffset || target.parentWindow.pageYOffset;
       const offsetHeight = target.document.documentElement.clientHeight;
 
       if (scrollHeight - scrollTop - offsetHeight <= offsetHeight * this.options.distanceRatio) {
