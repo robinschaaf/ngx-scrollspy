@@ -1,6 +1,6 @@
 {
-  "name": "ng2-scrollspy",
-  "description": "Angular2 ScrollSpy Service",
+  "name": "ngx-scrollspy",
+  "description": "Angular ScrollSpy Service",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "devDependencies": {
     "@angular/common": "^2.4.8",
@@ -42,7 +42,7 @@
     "zone.js": "^0.7.7"
   },
   "bugs": {
-    "url": "http://github.com/jonnybgod/ng2-scrollspy/issues"
+    "url": "http://github.com/jonnybgod/ngx-scrollspy/issues"
   },
   "scripts": {
     "rimraf": "rimraf",
@@ -60,7 +60,7 @@
   "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonnybgod/ng2-scrollspy.git"
+    "url": "https://github.com/jonnybgod/ngx-scrollspy.git"
   },
   "keywords": [
     "angular2",

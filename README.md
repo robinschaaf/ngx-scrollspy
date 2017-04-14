@@ -1,10 +1,10 @@
-[![npm version](https://img.shields.io/npm/v/ng2-scrollspy.svg?style=flat)](https://www.npmjs.com/package/ng2-scrollspy)
-[![Build Status](https://img.shields.io/travis/JonnyBGod/ng2-scrollspy/master.svg?style=flat)](https://travis-ci.org/JonnyBGod/ng2-scrollspy)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/bafd522f82da48fda8bb25bee689b32f)](https://www.codacy.com/app/JonnyBGod/ng2-scrollspy)
-[![Coverage Status](https://coveralls.io/repos/JonnyBGod/ng2-scrollspy/badge.svg?branch=master&service=github)](https://coveralls.io/github/JonnyBGod/ng2-scrollspy?branch=master)
-[![devDependency Status](https://david-dm.org/JonnyBGod/ng2-scrollspy/dev-status.svg)](https://david-dm.org/JonnyBGod/ng2-scrollspy#info=devDependencies)
+[![npm version](https://img.shields.io/npm/v/ngx-scrollspy.svg?style=flat)](https://www.npmjs.com/package/ngx-scrollspy)
+[![Build Status](https://img.shields.io/travis/JonnyBGod/ngx-scrollspy/master.svg?style=flat)](https://travis-ci.org/JonnyBGod/ngx-scrollspy)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/bafd522f82da48fda8bb25bee689b32f)](https://www.codacy.com/app/JonnyBGod/ngx-scrollspy)
+[![Coverage Status](https://coveralls.io/repos/JonnyBGod/ngx-scrollspy/badge.svg?branch=master&service=github)](https://coveralls.io/github/JonnyBGod/ngx-scrollspy?branch=master)
+[![devDependency Status](https://david-dm.org/JonnyBGod/ngx-scrollspy/dev-status.svg)](https://david-dm.org/JonnyBGod/ngx-scrollspy#info=devDependencies)
 
-[![Github Releases](https://img.shields.io/github/downloads/JonnyBGod/ng2-scrollspy/latest/total.svg)]()
+[![Github Releases](https://img.shields.io/github/downloads/JonnyBGod/ngx-scrollspy/latest/total.svg)]()
 
 You can use this angular2 service to spy scroll events from ```window``` or any other scrollable element.
 
@@ -18,19 +18,19 @@ This library implements an service to collect observables from scroll spy direct
 ## Installation
 First you need to install the npm module:
 ```sh
-npm install ng2-scrollspy --save
+npm install ngx-scrollspy --save
 ```
 
 If you use SystemJS to load your files, you might have to update your config with this if you don't use `defaultJSExtensions: true`:
 ```js
 System.config({
 	packages: {
-		"ng2-scrollspy": {"defaultExtension": "js"}
+		"ngx-scrollspy": {"defaultExtension": "js"}
 	}
 });
 ```
 
-Finally, you can use ng2-scrollspy in your Angular 2 project.
+Finally, you can use ngx-scrollspy in your Angular 2 project.
 It is recommended to instantiate `ScrollSpyService` in the bootstrap of your application and to never add it to the "providers" property of your components, this way you will keep it as a singleton.
 If you add it to the "providers" property of a component it will instantiate a new instance of the service that won't be initialized.
 
@@ -38,7 +38,7 @@ If you add it to the "providers" property of a component it will instantiate a n
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ScrollSpyModule } from 'ng2-scrollspy';
+import { ScrollSpyModule } from 'ngx-scrollspy';
 
 @NgModule({
   imports: [
@@ -60,7 +60,7 @@ Use ```ScrollSpyDirective``` to spy on window.
 import { NgModule, Component, Injectable, AfterViewInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ScrollSpyModule, ScrollSpyService } from 'ng2-scrollspy';
+import { ScrollSpyModule, ScrollSpyService } from 'ngx-scrollspy';
 
 @Injectable()
 @Component({
@@ -95,7 +95,7 @@ Use ```ScrollSpyElementDirective``` to spy on any element. You must give an uniq
 
 ```js
 import { NgModule, Component, Injectable, AfterViewInit } from '@angular/core';
-import { ScrollSpyModule, ScrollSpyService } from 'ng2-scrollspy';
+import { ScrollSpyModule, ScrollSpyService } from 'ngx-scrollspy';
 
 @Injectable()
 @Component({
