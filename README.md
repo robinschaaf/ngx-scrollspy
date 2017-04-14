@@ -15,6 +15,10 @@ This library implements an service to collect observables from scroll spy direct
 * **parallax**: create very simple parallax effects based on scroll.
 * **infinite**: infinite scroll
 
+# Repository change
+
+Please not that the repository and npm package changed from *ng2-scrollspy* to *ngx-scrollspy*
+
 ## Installation
 First you need to install the npm module:
 ```sh
