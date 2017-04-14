@@ -38,11 +38,11 @@ describe('plugin index.render.directive', () => {
         let compiled = fixture.debugElement.nativeElement;
         let match = compiled.getElementsByTagName('scrollspy-index-render')[0].outerHTML;
 
-        expect(match).toContain('<a ng-reflect-fragment="test1" ng-reflect-href="/#test1" href="/#test1">test1</a>');
-        expect(match).toContain('<a ng-reflect-fragment="test2" ng-reflect-href="/#test2" href="/#test2">test2</a>');
-        expect(match).toContain('<a ng-reflect-fragment="test3" ng-reflect-href="/#test3" href="/#test3">test3</a>');
-        expect(match).toContain('<a ng-reflect-fragment="test3-child" ng-reflect-href="/#test3-child" href="/#test3-child">test3-child</a>');
-        expect(match).toContain('<a ng-reflect-fragment="test3-child-child" ng-reflect-href="/#test3-child-child" href="/#test3-child-child">test3-child-child</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test1" href="/#test1">test1</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test2" href="/#test2">test2</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test3" href="/#test3">test3</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test3-child" href="/#test3-child">test3-child</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test3-child-child" href="/#test3-child-child">test3-child-child</a>');
       })));
 
   it('should highlight base on spyId',
@@ -59,7 +59,7 @@ describe('plugin index.render.directive', () => {
         advance(fixture);
 
         let match = compiled.getElementsByClassName('active')[0].outerHTML;
-        expect(match).toContain('<a ng-reflect-fragment="test1" ng-reflect-href="/#test1" href="/#test1">test1</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test1" href="/#test1">test1</a>');
 
         window.scrollTo(0, 3100);
         evt.initUIEvent('scroll', true, true, window, 1);
@@ -69,8 +69,8 @@ describe('plugin index.render.directive', () => {
         match = compiled.getElementsByClassName('active');
 
         expect(match.length).toEqual(2);
-        expect(match[0].outerHTML).toContain('<a ng-reflect-fragment="test3" ng-reflect-href="/#test3" href="/#test3">test3</a>');
-        expect(match[1].outerHTML).toContain('<a ng-reflect-fragment="test3-child" ng-reflect-href="/#test3-child" href="/#test3-child">test3-child</a>');
+        expect(match[0].outerHTML).toContain('<a ng-reflect-fragment="test3" href="/#test3">test3</a>');
+        expect(match[1].outerHTML).toContain('<a ng-reflect-fragment="test3-child" href="/#test3-child">test3-child</a>');
       })));
 
   it('should highlight respecting topMargin',
@@ -87,7 +87,7 @@ describe('plugin index.render.directive', () => {
         advance(fixture);
 
         let match = compiled.getElementsByClassName('active')[0].outerHTML;
-        expect(match).toContain('<a ng-reflect-fragment="test1" ng-reflect-href="/#test1" href="/#test1">test1</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test1" href="/#test1">test1</a>');
 
         window.scrollTo(0, 900);
         evt.initUIEvent('scroll', true, true, window, 1);
@@ -95,7 +95,7 @@ describe('plugin index.render.directive', () => {
         advance(fixture);
 
         match = compiled.getElementsByClassName('active')[0].outerHTML;
-        expect(match).toContain('<a ng-reflect-fragment="test2" ng-reflect-href="/#test2" href="/#test2">test2</a>');
+        expect(match).toContain('<a ng-reflect-fragment="test2" href="/#test2">test2</a>');
       })));
 });
 
