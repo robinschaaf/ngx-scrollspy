@@ -24,6 +24,7 @@
     "karma": "^1.6.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
+    "karma-coveralls": "^1.1.2",
     "karma-jasmine": "^1.1.0",
     "karma-mocha-reporter": "^2.2.3",
     "karma-sourcemap-loader": "^0.3.7",
@@ -58,8 +59,9 @@
     "build": "ngc && webpack",
     "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
-  "main": "./dist/index",
-  "typings": "./dist/index.d.ts",
+  "main": "dist/core.umd.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnybgod/ngx-scrollspy.git"
