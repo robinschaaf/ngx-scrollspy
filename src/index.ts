@@ -3,7 +3,7 @@ import {
   ModuleWithProviders,
   Inject,
   Optional,
-  OpaqueToken,
+  InjectionToken,
   SkipSelf
 } from '@angular/core';
 
@@ -18,7 +18,7 @@ export * from './core/window.directive';
 export * from './core/element.directive';
 export * from './plugin/index.service';
 
-export const NG2SCROLLSPY_FORROOT_GUARD = new OpaqueToken('NG2SCROLLSPY_FORROOT_GUARD');
+export const NG2SCROLLSPY_FORROOT_GUARD = new InjectionToken('NG2SCROLLSPY_FORROOT_GUARD');
 export function provideForRootGuard(scrollSpyService: ScrollSpyService): any {
   if (scrollSpyService) {
     throw new Error(
