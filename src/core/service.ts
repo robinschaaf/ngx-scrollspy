@@ -10,7 +10,7 @@ export class ScrollSpyService {
     return this.observables[key];
   }
 
-  public setObservable(key: string, observable: ReplaySubject<any>) {
+  public setObservable(key: string, observable: ReplaySubject<any> | Observable<any>) {
     this.observables[key] = observable;
     this.observables = this.observables = Object.assign({}, this.observables);
     this.changes$.emit({ index: key, change: 'set' });
