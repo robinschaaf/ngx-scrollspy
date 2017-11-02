@@ -14,12 +14,12 @@ export class ScrollSpyService {
   public setObservable(key: string, observable: ReplaySubject<any> | Observable<any>) {
     this.observables[key] = observable;
     this.observables = this.observables = Object.assign({}, this.observables);
-    this.changes$.emit({ index: key, change: 'set' });
+    this.changes$.next({ index: key, change: 'set' });
   }
 
   public deleteObservable(key: string) {
     delete this.observables[key];
     this.observables = Object.assign({}, this.observables);
-    this.changes$.emit({ index: key, change: 'delete' });
+    this.changes$.next({ index: key, change: 'delete' });
   }
 }
