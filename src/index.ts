@@ -1,9 +1,4 @@
-import {
-  NgModule,
-  ModuleWithProviders,
-  Optional,
-  SkipSelf
-} from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { ScrollSpyService } from './core/service';
 import { ScrollSpyDirective } from './core/window.directive';
@@ -21,14 +16,6 @@ export * from './plugin/index.service';
   exports: [ ScrollSpyDirective, ScrollSpyElementDirective ]
 })
 export class ScrollSpyModule {
-  constructor(@Optional() @SkipSelf() parentModule: ScrollSpyModule) {
-    if (parentModule) {
-      throw new Error(
-        'ScrollSpyModule.forRoot() called twice. Lazy loaded modules should use ScrollSpyModule instead.',
-      );
-    }
-  }
-
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: ScrollSpyModule,
