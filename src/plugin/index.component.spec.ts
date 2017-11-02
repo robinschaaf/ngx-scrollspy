@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { advance, createRoot } from '../test.mocks';
 
-import { ScrollSpyModule } from '../index';
+import { ScrollSpyModule } from '../module';
 import { ScrollSpyIndexModule } from './index';
 
 describe('plugin index.render.directive', () => {

@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject, tick } from '@angular/cor
 
 import { advance, createRoot } from '../test.mocks';
 
-import { ScrollSpyModule } from '../index';
+import { ScrollSpyModule } from '../module';
 import { ScrollSpyInfiniteModule } from './infinite';
 
 describe('plugin infinite.directive', () => {
@@ -69,7 +69,7 @@ describe('plugin infinite.directive', () => {
       () => {
         fixture = createRoot(RootCmp);
         advance(fixture);
-        
+
         const scrollHeight = window.document.documentElement.scrollHeight;
         const clientHeight = window.document.documentElement.clientHeight;
 

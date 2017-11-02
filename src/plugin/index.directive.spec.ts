@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 
 import { advance, createRoot } from '../test.mocks';
 
-import { ScrollSpyModule } from '../index';
+import { ScrollSpyModule } from '../module';
 import { ScrollSpyIndexModule } from './index';
 import { ScrollSpyIndexService } from './index.service';
 
@@ -37,7 +37,7 @@ describe('plugin index.directive', () => {
 
         var testSubject = scrollSpyIndexService.getIndex('test');
         let match = compiled.getElementsByClassName('anchor');
-        
+
         expect(testSubject).toEqual(match);
       })));
 });

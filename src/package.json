@@ -1,0 +1,31 @@
+{
+  "name": "ngx-scrollspy",
+  "description": "Angular ScrollSpy Service",
+  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^5.0.0",
+    "rxjs": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonnybgod/ngx-scrollspy.git"
+  },
+  "bugs": {
+    "url": "http://github.com/jonnybgod/ngx-scrollspy/issues"
+  },
+  "keywords": [
+    "angular2",
+    "ng2",
+    "angular",
+    "scrollspy",
+    "scroll",
+    "spy",
+    "index",
+    "parallax",
+    "infinite",
+    "infinite-scroll",
+    "affix",
+    "effect"
+  ]
+}

@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 
-import { ScrollSpyService } from '../index';
+import { ScrollSpyService } from '../core/service';
 
 export interface ScrollSpyAffixOptions {
   topMargin?: number;

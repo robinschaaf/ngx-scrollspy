@@ -3,7 +3,8 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 
 import { advance, createRoot } from '../test.mocks';
 
-import { ScrollSpyModule, ScrollSpyService } from '../index';
+import { ScrollSpyModule } from '../module';
+import { ScrollSpyService } from './service';
 
 describe('core element.directive', () => {
 

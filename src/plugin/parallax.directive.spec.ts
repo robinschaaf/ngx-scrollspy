@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 
 import { advance, createRoot } from '../test.mocks';
 
-import { ScrollSpyModule } from '../index';
+import { ScrollSpyModule } from '../module';
 import { ScrollSpyParallaxModule } from './parallax';
 
 describe('plugin parallax.directive', () => {

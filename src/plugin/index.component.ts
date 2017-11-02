@@ -10,7 +10,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 
-import { ScrollSpyService } from '../index';
+import { ScrollSpyService } from '../core/service';
 import { ScrollSpyIndexService } from './index.service';
 
 export interface ScrollSpyIndexComponentOptions {

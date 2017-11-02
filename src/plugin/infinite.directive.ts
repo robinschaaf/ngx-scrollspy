@@ -8,8 +8,9 @@ import {
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
+import { throttleTime } from 'rxjs/operators';
 
-import { ScrollSpyService } from '../index';
+import { ScrollSpyService } from '../core/service';
 
 export interface ScrollSpyInfiniteOptions {
   spyId?: string;
@@ -51,7 +52,7 @@ export class ScrollSpyInfiniteDirective implements OnInit, AfterViewInit, OnDest
 
   ngAfterViewInit() {
     if (!!this.scrollSpy.getObservable(this.options.spyId)) {
-      this.scrollStream$ = this.scrollSpy.getObservable(this.options.spyId).throttleTime(200).subscribe((e: any) => {
+      this.scrollStream$ = this.scrollSpy.getObservable(this.options.spyId).pipe(throttleTime(200)).subscribe((e: any) => {
         if (!this.scrollSpyInfiniteDisabled) {
           this.evaluateScroll(e.target);
         }

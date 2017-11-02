@@ -3,13 +3,13 @@ import {
   Injectable,
   Input,
   ElementRef,
-  Renderer,
+  Renderer2,
   OnInit,
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
 
-import { ScrollSpyService } from '../index';
+import { ScrollSpyService } from '../core/service';
 
 export interface ScrollSpyParallaxOptions {
   // (default: 'window')
@@ -19,7 +19,7 @@ export interface ScrollSpyParallaxOptions {
   horizontal?: boolean;
 
   // the css property (converted to camelCase) that you want changed along with the
-  // value you want to assign to the css key; you should use ParallaxCss if you're 
+  // value you want to assign to the css key; you should use ParallaxCss if you're
   // just defining one property without special values
   cssKey?: string;
 
@@ -73,7 +73,7 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
   public el: HTMLElement;
 
   constructor(
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private elRef: ElementRef,
     private scrollSpy: ScrollSpyService
   ) {
@@ -166,7 +166,7 @@ export class ScrollSpyParallaxDirective implements OnInit, AfterViewInit, OnDest
       result = value + this.options.unit;
     }
 
-    this.renderer.setElementStyle(this.el, this.options.cssKey, result);
+    this.renderer.setStyle(this.el, this.options.cssKey, result);
   }
 
   ngOnDestroy() {
