@@ -1,7 +1,8 @@
 {
-  "name": "ngx-scrollspy",
-  "description": "Angular ScrollSpy Service",
-  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "name": "robinschaaf-ngx-scrollspy",
+  "description":"Angular ScrollSpy Service Fork",
+  "author":"Robin Cottrell <robinmschaaf@gmail.com> (http://github.com/robinschaaf)",
+  "version":"1.0.0",
   "devDependencies": {
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
@@ -44,7 +45,7 @@
     "zone.js": "^0.8.5"
   },
   "bugs": {
-    "url": "http://github.com/jonnybgod/ngx-scrollspy/issues"
+    "url": "http://github.com/robinschaaf/ngx-scrollspy/issues"
   },
   "scripts": {
     "rimraf": "rimraf",
@@ -58,16 +59,17 @@
     "commit": "git-cz",
     "prebuild": "npm run rimraf -- dist",
     "build": "ng-packagr -p ng-package.json",
-    "semantic-release": "semantic-release pre && npm run build && npm publish dist && semantic-release post"
+    "semantic-release": "semantic-release pre && npm run build && npm publish dist && semantic-release post",
+    "prepare": "npm run prebuild && npm run build"
   },
-  "main": "dist/bundles/ngx-scrollspy.umd.js",
-  "module": "dist/ngx-scrollspy.es5.js",
-  "typings": "dist/ngx-scrollspy.d.ts",
-  "es2015": "dist/ngx-scrollspy.js",
-  "metadata": "dist/ngx-scrollspy.metadata.json",
+  "main": "dist/bundles/robinschaaf-ngx-scrollspy.umd.js",
+  "module": "dist/robinschaaf-ngx-scrollspy.es5.js",
+  "typings": "dist/robinschaaf-ngx-scrollspy.d.ts",
+  "es2015": "dist/robinschaaf-ngx-scrollspy.js",
+  "metadata": "dist/robinschaaf-ngx-scrollspy.metadata.json",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonnybgod/ngx-scrollspy.git"
+    "url": "https://github.com/robinschaaf/ngx-scrollspy.git"
   },
   "keywords": [
     "angular2",
